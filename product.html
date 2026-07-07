@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Bear Fruit 結菓</title>
+  <meta name="description" content="Bear Fruit 結菓 product.">
+  <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233D5C35'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23FEFCF8' font-family='serif'%3E%E7%B5%90%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#3D5C35">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="index.html#home" class="nav__logo-link" aria-label="Bear Fruit — home">
+      <img class="nav__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+    </a>
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a></li>
+        <li><a href="products.html" data-en="Products"  data-tc="產品">Products</a></li>
+        <li><a href="index.html#shops"   data-en="Shops"   data-tc="門市">Shops</a></li>
+        <li><a href="index.html#contact" data-en="Contact" data-tc="聯絡我們">Contact</a></li>
+      </ul>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+             fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <circle cx="10" cy="10" r="8"/><path d="M10 2 C7 5.5 7 14.5 10 18"/><path d="M10 2 C13 5.5 13 14.5 10 18"/>
+          <line x1="2" y1="10" x2="18" y2="10"/><path d="M3 6.5 Q10 4.5 17 6.5"/><path d="M3 13.5 Q10 15.5 17 13.5"/>
+        </svg>
+      </button>
+      <a href="https://bear-fruit-order-kiosk.web.app/" class="nav__order"
+         data-en="Order Online" data-tc="立即訂購" target="_blank" rel="noopener noreferrer">Order Online</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a>
+    <a href="products.html" data-en="Products"  data-tc="產品">Products</a>
+    <a href="index.html#shops"   data-en="Shops"   data-tc="門市">Shops</a>
+    <a href="index.html#contact" data-en="Contact" data-tc="聯絡我們">Contact</a>
+    <a href="https://bear-fruit-order-kiosk.web.app/" class="mobile-menu__order"
+       data-en="Order Online" data-tc="立即訂購" target="_blank" rel="noopener noreferrer">Order Online</a>
+  </div>
+
+  <!-- ══ HERO: photo + name + description ══ -->
+  <section class="pd-hero" aria-label="Product">
+    <div class="pd-hero__media" id="pdMedia">
+      <div class="ph" aria-hidden="true"><span class="ph-label" id="phLabel">Product</span><span class="ph-spec" id="phSpec"></span></div>
+    </div>
+    <div class="pd-hero__info">
+      <p class="eyebrow" data-en="Product" data-tc="產品">Product</p>
+      <h1 class="pd-name" id="pdName">—<span class="pd-name-cjk" id="pdNameCjk"></span></h1>
+      <div class="rule"></div>
+      <p class="pd-desc" id="pdDesc"></p>
+      <div class="pd-flavours" id="pdFlavours"></div>
+    </div>
+  </section>
+
+  <!-- ══ PACKAGING (scroll down) ══ -->
+  <section class="pd-pack" aria-label="Available packaging">
+    <div class="pd-pack__inner">
+      <div class="pd-pack__head">
+        <p class="eyebrow reveal" data-en="Available Packaging" data-tc="可選包裝">Available Packaging</p>
+        <h2 class="section-title reveal d1" data-en="Ways to enjoy" data-tc="購買選項">Ways to enjoy</h2>
+      </div>
+      <div class="pack-list reveal d1" id="pdPack"></div>
+      <div class="reveal d2">
+        <a href="https://bear-fruit-order-kiosk.web.app/" class="btn-solid"
+           data-en="Order Online" data-tc="立即訂購" target="_blank" rel="noopener noreferrer">Order Online</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ALL PRODUCTS (scroll further down → back to catalogue) ══ -->
+  <section class="pd-related" aria-label="All products">
+    <div class="pd-related__head">
+      <p class="eyebrow reveal" data-en="Products" data-tc="產品">Products</p>
+      <h2 class="section-title reveal d1" data-en="Explore all products" data-tc="探索所有產品">Explore all products</h2>
+    </div>
+    <div class="catalog__grid" id="pdAll"></div>
+    <div style="margin-top: clamp(40px,6vw,72px)">
+      <a href="products.html" class="text-link">
+        <span data-en="View All Products" data-tc="查看全部產品">View All Products</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" id="footer" aria-label="Site footer">
+    <button class="footer__totop" id="toTop" aria-label="Back to top">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>
+      </svg>
+    </button>
+    <div class="footer__main">
+      <p class="footer__motto">
+        <span class="lang-en">where fine works bear fruit</span>
+        <span class="lang-tc">慢工細作　終成碩果</span>
+      </p>
+      <a href="index.html#home" class="footer__logo-link" aria-label="Bear Fruit — home">
+        <img class="footer__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+      </a>
+    </div>
+    <div class="footer__bottom">
+      <nav aria-label="Footer navigation">
+        <ul class="footer__nav">
+          <li><a href="index.html"        data-en="Home"       data-tc="主頁">Home</a></li>
+          <li><a href="about.html"        data-en="Our Value"  data-tc="品牌理念">Our Value</a></li>
+          <li><a href="products.html"     data-en="Products"   data-tc="產品">Products</a></li>
+          <li><a href="index.html#shops"  data-en="Shops"      data-tc="門市">Shops</a></li>
+          <li><a href="index.html#contact" data-en="Contact"   data-tc="聯絡我們">Contact</a></li>
+          <li><a href="https://bear-fruit-order-kiosk.web.app/" data-en="Order Online" data-tc="立即訂購" target="_blank" rel="noopener noreferrer">Order Online</a></li>
+        </ul>
+      </nav>
+      <p class="footer__copy">
+        <span class="lang-en">&copy; 2023 Bear Fruit. All rights reserved.</span>
+        <span class="lang-tc">&copy; 2023 結菓。版權所有。</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+
+  <!-- Product data. NOTE: packaging prices are PLACEHOLDER examples — edit freely. -->
+  <script>
+  const PRODUCTS = {
+    'bare-mochi': {
+      en:'Bare Mochi', tc:'裸麻糬',
+      descEn:'Soft, pillowy milk mochi, finished with carefully paired drizzles and toppings.',
+      descTc:'軟糯的牛奶麻糬，配以精心調配的淋醬與配料。',
+      folder:'images/products/bare-mochi/',
+      images:['images/products/bare-mochi/matcha-red-bean.png','images/products/bare-mochi/sea-salt-cocoa-crunch.png','images/products/bare-mochi/kuromitsu-kinako.png'],
+      flavoursEn:['Matcha Red Bean','Sea Salt Cocoa Crunch','Kuromitsu Kinako'],
+      flavoursTc:['抹茶蜜紅豆','奶蓋濃可可','黑糖黃豆粉'],
+      pack:[{en:'6-Piece Box',tc:'6 件裝',price:'HK$30–32'},{en:'12-Piece Box',tc:'12 件裝',price:'HK$40–42',imgs:['images/products/bare-mochi/matcha-red-bean.png','images/products/bare-mochi/sea-salt-cocoa-crunch.png','images/products/bare-mochi/kuromitsu-kinako.png']}]
+    },
+    'stuffed-mochi': {
+      en:'Stuffed Mochi', tc:'包餡麻糬',
+      descEn:'Soft milk mochi wrapping a perfectly balanced filling. Available in six flavours.',
+      descTc:'軟糯煙韌的牛奶麻糬，包裹著比例適中的內餡，備有六款口味。',
+      images:['images/products/stuffed-mochi/stuffed-mochi (6pcs).png'],
+      flavoursEn:['Roasted Kinako','Hazelnut Chocolate','Peanut Crunch','Premium Pistachio','Black & White Sesame','Matcha Red Bean'],
+      flavoursTc:['經典黃豆粉','榛子朱古力','花生糖不甩','特濃開心果','芝麻黑白配','抹茶蜜紅豆'],
+      pack:[
+        {en:'4-Piece Box',tc:'4 件裝',price:'HK$32',img:'images/products/stuffed-mochi/stuffed-mochi (4pcs).png'},
+        {en:'6-Piece Box',tc:'6 件裝',price:'HK$45',img:'images/products/stuffed-mochi/stuffed-mochi (6pcs).png'},
+        {en:'12-Piece Box',tc:'12 件裝',price:'HK$84',img:'images/products/stuffed-mochi/stuffed-mochi (12pcs).png'}
+      ]
+    },
+    'custard-pudding': {
+      en:'Japanese Custard Pudding', tc:'日式布丁',
+      descEn:'A silky-smooth pudding made with French cream, balanced by a touch of caramel.',
+      descTc:'絲滑的日式布甸，以法國忌廉製成，配上焦糖平衡甜度。',
+      folder:'images/products/custard-pudding/',
+      images:['images/products/custard-pudding/original.png','images/products/custard-pudding/genmaicha.png','images/products/custard-pudding/decadent-chocolate.png'],
+      flavoursEn:['Original','Genmaicha','Decadent Chocolate'],
+      flavoursTc:['經典焦糖原味','京都玄米抹茶','醇厚朱古力'],
+      pack:[{en:'Single Cup',tc:'單杯',price:'HK$38',imgs:['images/products/custard-pudding/original.png','images/products/custard-pudding/genmaicha.png','images/products/custard-pudding/decadent-chocolate.png']},{en:'Any 3 · Bundle',tc:'任選三杯',price:'HK$105'}]
+    },
+    'liege-waffle': {
+      en:'Liège Waffle', tc:'列日窩夫',
+      descEn:'A rich, buttery waffle with a caramelised pearl-sugar crust. A versatile everyday treat.',
+      descTc:'散發濃郁牛油香，外層為焦糖珍珠糖脆殼，是百搭的日常甜點。',
+      folder:'images/products/liege-waffle/',
+      images:['images/products/liege-waffle/original.png','images/products/liege-waffle/rich-cocoa-chocolate.png','images/products/liege-waffle/kyoto-hojicha.png'],
+      flavoursEn:['Original','Rich Cocoa Chocolate','Kyoto Hojicha'],
+      flavoursTc:['經典原味','香濃朱古力','京都焙茶'],
+      pack:[{en:'Original',tc:'經典原味',price:'HK$20'},{en:'Rich Cocoa Chocolate',tc:'香濃朱古力',price:'HK$22'},{en:'Kyoto Hojicha',tc:'京都焙茶',price:'HK$24'}]
+    },
+    'flan-tart': {
+      en:'Flan Tart', tc:'法式蛋撻',
+      comingSoon:true,
+      descEn:'A crisp pâte sucrée crust filled with silky-smooth vanilla custard. Coming soon.',
+      descTc:'鬆脆的法式甜撻皮，盛滿絲滑的雲呢拿吉士。即將推出。',
+      images:['images/products/flan-tart.png'],
+      pack:[]
+    }
+  };
+  const ORDER = ['bare-mochi','stuffed-mochi','custard-pudding','liege-waffle','flan-tart'];
+
+  (function () {
+    const slug = new URLSearchParams(location.search).get('p');
+    const key = PRODUCTS[slug] ? slug : 'bare-mochi';
+    const p = PRODUCTS[key];
+    const bi = (en, tc) => `<span class="lang-en">${en}</span><span class="lang-tc">${tc}</span>`;
+
+    document.title = `${p.en} — Bear Fruit 結菓`;
+
+    // Hero media
+    const media = document.getElementById('pdMedia');
+    document.getElementById('phLabel').textContent = p.en;
+    document.getElementById('phSpec').textContent = p.folder || p.images[0];
+    p.images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.className = 'pd-hero__img' + (i === 0 ? ' is-active' : '');
+      img.src = src; img.alt = p.en; img.loading = 'eager';
+      img.onerror = function () { this.remove(); };
+      media.appendChild(img);
+    });
+    if (p.images.length > 1) media.setAttribute('data-rotate', '');
+
+    // Name + description
+    document.getElementById('pdName').innerHTML = p.en + `<span class="pd-name-cjk">${p.tc}</span>`;
+    document.getElementById('pdDesc').innerHTML = bi(p.descEn, p.descTc);
+    if (p.comingSoon) {
+      const badge = document.createElement('span');
+      badge.className = 'pd-badge';
+      badge.innerHTML = bi('Coming Soon', '即將推出');
+      document.getElementById('pdName').insertAdjacentElement('afterend', badge);
+    }
+
+    // Flavours (if any)
+    const fl = document.getElementById('pdFlavours');
+    if (p.flavoursEn) {
+      p.flavoursEn.forEach((f, i) => {
+        const s = document.createElement('span');
+        s.className = 'pd-flavour';
+        s.innerHTML = bi(f, p.flavoursTc[i]);
+        fl.appendChild(s);
+      });
+    }
+
+    // Packaging (each option has its own photo slot) — or a "coming soon" note
+    const pack = document.getElementById('pdPack');
+    if (p.comingSoon) {
+      pack.innerHTML = `<p class="pd-comingsoon">${bi('This product is coming soon — stay tuned.', '此產品即將推出，敬請期待。')}</p>`;
+      const btn = document.querySelector('.pd-pack .btn-solid');
+      if (btn) btn.style.display = 'none';
+    } else {
+      p.pack.forEach((item, i) => {
+        let media;
+        if (item.imgs) {
+          // rotating set of photos (cross-fade), e.g. the flavour shots
+          const imgs = item.imgs.map((s, j) =>
+            `<img class="${j === 0 ? 'is-active' : ''}" src="${s}" alt="${item.en}" loading="lazy" onerror="this.remove()">`).join('');
+          media = `<div class="pack-item__media pack-item__slideshow" data-rotate>
+                     <div class="ph" aria-hidden="true"><span class="ph-label">${item.en}</span></div>${imgs}
+                   </div>`;
+        } else {
+          const src = item.img || ('images/products/packaging/' + key + '-' + (i + 1) + '.png');
+          media = `<div class="pack-item__media">
+                     <div class="ph" aria-hidden="true"><span class="ph-label">${item.en}</span></div>
+                     <img src="${src}" alt="${item.en}" loading="lazy" onerror="this.remove()">
+                   </div>`;
+        }
+        const row = document.createElement('div');
+        row.className = 'pack-item';
+        row.innerHTML = media +
+          `<div class="pack-item__row">
+             <span class="pack-item__name">${bi(item.en, item.tc)}</span>
+             <span class="pack-item__price">${item.price}</span>
+           </div>`;
+        pack.appendChild(row);
+      });
+    }
+
+    // All products grid (bottom → back to the catalogue)
+    const all = document.getElementById('pdAll');
+    ORDER.forEach(k => {
+      const q = PRODUCTS[k];
+      const a = document.createElement('a');
+      a.className = 'pcard reveal';
+      a.href = 'product.html?p=' + k;
+      a.innerHTML =
+        `<div class="pcard__media">
+           ${q.comingSoon ? `<span class="pcard__badge">${bi('Coming Soon','即將推出')}</span>` : ''}
+           <div class="ph" aria-hidden="true"><span class="ph-label">${q.en}</span></div>
+           <img class="pcard__img" src="${q.images[0]}" alt="${q.en}" loading="lazy" onerror="this.remove()">
+         </div>
+         <div class="pcard__body"><h3 class="pcard__name">${bi(q.en, q.tc)}</h3></div>`;
+      all.appendChild(a);
+    });
+
+    // Re-apply language + start rotators for the freshly injected content
+    if (window.bfSetLang) window.bfSetLang(window.bfLang());
+    if (window.bfStartRotators) window.bfStartRotators();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story — Bear Fruit 結菓</title>
+  <meta name="description" content="The story behind Bear Fruit 結菓 — why we started, what we believe in, and what the name means to us.">
+
+  <!-- Favicon (inline SVG — brand green with 結) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233D5C35'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23FEFCF8' font-family='serif'%3E%E7%B5%90%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="images/Horizontal - Bear Fruit (white).png">
+  <meta name="theme-color" content="#3D5C35">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Our Story — Bear Fruit 結菓">
+  <meta property="og:description" content="Why we started, what we believe in, and what the name Bear Fruit means to us.">
+  <meta property="og:image" content="images/hero-bg-1.png">
+  <meta property="og:locale" content="en_HK">
+  <meta property="og:locale:alternate" content="zh_HK">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Set lang before first paint to prevent font FOUC in TC mode -->
+  <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
+
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--cream-50);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { background: none; border: none; cursor: pointer; padding: 0; }
+
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --green-dk:  #2E4528;
+      --green-md:  #3D5C35;
+      --green-pr:  #567A4D;
+
+      --cream-50:  #FEFCF8;
+      --cream-100: #FAF6EF;
+      --cream-200: #F0E9DC;
+
+      --gold:      #C9A46B;
+
+      --ink:       #1A1A18;
+      --ink-mid:   #3D3D3A;
+      --ink-muted: #6B6B64;
+
+      /* English → Helvetica */
+      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      /* Traditional Chinese → Yu Gothic (with TC-safe fallbacks) */
+      --cjk:  'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --pad-page: clamp(24px, 6vw, 80px);
+    }
+
+    /* In TC mode every element using --sans automatically switches to Yu Gothic */
+    html[lang="zh-HK"] { --sans: 'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif; }
+
+    /* Default: hide TC blocks (JS applies the correct one on load) */
+    .lang-tc { display: none; }
+
+    /* ── Scroll reveal ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.12s; }
+    .d2 { transition-delay: 0.24s; }
+    .d3 { transition-delay: 0.36s; }
+
+    /* ════════════════════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px var(--pad-page);
+      background: var(--green-md);
+      transition: padding 0.45s var(--ease), box-shadow 0.45s var(--ease);
+    }
+    .nav.scrolled {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    }
+
+    .nav__logo {
+      height: 38px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      transition: height 0.45s var(--ease);
+    }
+    .nav.scrolled .nav__logo { height: 30px; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav__links a {
+      font-size: 0.71rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.80);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: #fff; }
+    .nav__links a[aria-current="page"] {
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      padding-bottom: 1px;
+    }
+
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.70);
+      padding: 4px;
+      transition: color 0.2s;
+      line-height: 0;
+    }
+    .lang-toggle:hover { color: #fff; }
+    .lang-toggle svg { display: block; }
+
+    .nav__order {
+      font-size: 0.71rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav__order:hover { color: #fff; }
+
+    /* ── Mobile menu (hamburger + overlay) ──────────────────── */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      z-index: 320;
+    }
+    .nav__burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease), opacity 0.2s var(--ease);
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 190; /* below .nav (200) so the burger/toggle stay clickable */
+      background: var(--green-dk);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mobile-menu a {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-menu__order {
+      margin-top: 6px;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 13px 34px;
+      color: #fff !important;
+    }
+    body.menu-open { overflow: hidden; }
+    body.menu-open .nav__order { opacity: 0; pointer-events: none; }
+
+    /* ════════════════════════════════════════════════════════
+       PAGE HEADER — FULL SCREEN
+    ════════════════════════════════════════════════════════ */
+    .page-header {
+      background: var(--green-dk);
+      height: 100svh;
+      min-height: 500px;
+      padding: 0 var(--pad-page);
+      padding-top: clamp(80px, 10vw, 120px); /* offset for fixed nav */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+    }
+    .page-header__title {
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .page-header__cjk {
+      font-family: var(--cjk);
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      color: rgba(255,255,255,0.55);
+      margin-top: 4px;
+    }
+    .page-header__rule {
+      width: 38px;
+      height: 1px;
+      background: var(--gold);
+      margin-top: 8px;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       STORY CONTENT
+    ════════════════════════════════════════════════════════ */
+    .story {
+      background: var(--cream-50);
+      min-height: 100svh;
+      padding: clamp(80px, 10vw, 120px) var(--pad-page);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .story__inner {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .story__p {
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      font-weight: 300;
+      line-height: 2.1;
+      color: var(--ink-mid);
+    }
+    .story__p + .story__p { margin-top: 28px; }
+
+    .story__p-tc {
+      font-family: var(--cjk);
+      font-size: clamp(0.92rem, 1.3vw, 1rem);
+      font-weight: 300;
+      line-height: 2.3;
+      color: var(--ink-mid);
+    }
+    .story__p-tc + .story__p-tc { margin-top: 28px; }
+
+    .story__back {
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--cream-200);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-pr);
+      transition: gap 0.25s var(--ease);
+    }
+    .back-link:hover { gap: 18px; }
+
+    /* ════════════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════════════ */
+    .footer {
+      position: relative;
+      min-height: 100vh;
+      background: var(--green-dk);
+      padding: clamp(56px, 8vh, 100px) var(--pad-page) clamp(28px, 3vh, 40px);
+      display: flex;
+      flex-direction: column;
+    }
+    .footer__main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .footer__motto {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: 0.05em;
+      color: #fff;
+      opacity: 0.85;
+      white-space: nowrap;
+      transition: font-size 0.7s var(--ease), opacity 0.7s var(--ease);
+    }
+    .footer.is-full .footer__motto { font-size: clamp(1.7rem, 4.4vw, 3.4rem); opacity: 1; }
+    .footer__logo-link { flex-shrink: 0; }
+    .footer__logo {
+      height: clamp(28px, 3vw, 42px);
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+      transition: height 0.7s var(--ease), opacity 0.2s;
+    }
+    .footer.is-full .footer__logo { height: clamp(40px, 5vw, 68px); }
+    .footer__logo-link:hover .footer__logo { opacity: 1; }
+    .footer__totop {
+      position: absolute; top: clamp(88px, 12vh, 128px); left: 50%; transform: translateX(-50%);
+      width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 50%; color: rgba(255,255,255,0.65);
+      transition: color 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .footer__totop:hover { color: #fff; border-color: rgba(255,255,255,0.7); transform: translateX(-50%) translateY(-3px); }
+    .footer__totop svg { display: block; }
+    @media (max-width: 700px) {
+      .footer__main { flex-direction: column; align-items: flex-start; gap: 30px; }
+      .footer__motto { white-space: normal; }
+    }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px 40px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: clamp(22px, 3vw, 34px);
+    }
+    .footer__nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+    }
+    .footer__nav a {
+      font-size: 0.67rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer__nav a:hover { color: #fff; }
+    .footer__copy {
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.32);
+    }
+
+    /* ════════════════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════════════ */
+    @media (max-width: 920px) {
+      .nav__links { display: none; }
+      .nav__order { display: none; }
+      .nav__burger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .nav { padding: 18px 20px; }
+      .nav__order { padding: 8px 16px; font-size: 0.65rem; }
+      .nav__logo { height: 52px; }
+    }
+
+    /* ── Keyboard focus (accessibility) ─────────────────────── */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ── Reduced motion (accessibility) ─────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { transition-duration: 0.001s; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       NAV
+  ══════════════════════════════════════════ -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="index.html#home" class="nav__logo-link" aria-label="Bear Fruit — home">
+      <img class="nav__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+    </a>
+
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a href="about.html"         data-en="Our Value" data-tc="品牌理念" aria-current="page">Our Value</a></li>
+        <li><a href="products.html"      data-en="Products"  data-tc="產品">Products</a></li>
+        <li><a href="index.html#shops"   data-en="Shops"     data-tc="門市">Shops</a></li>
+        <li><a href="index.html#contact" data-en="Contact"   data-tc="聯絡我們">Contact</a></li>
+      </ul>
+
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+             fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <circle cx="10" cy="10" r="8"/>
+          <path d="M10 2 C7 5.5 7 14.5 10 18"/>
+          <path d="M10 2 C13 5.5 13 14.5 10 18"/>
+          <line x1="2" y1="10" x2="18" y2="10"/>
+          <path d="M3 6.5 Q10 4.5 17 6.5"/>
+          <path d="M3 13.5 Q10 15.5 17 13.5"/>
+        </svg>
+      </button>
+
+      <a href="https://bear-fruit-order-kiosk.web.app/" class="nav__order"
+         data-en="Order Online" data-tc="立即訂購"
+         target="_blank" rel="noopener noreferrer">Order Online</a>
+
+      <button class="nav__burger" id="navBurger" aria-label="Open menu"
+              aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="about.html"         data-en="Our Value" data-tc="品牌理念">Our Value</a>
+    <a href="products.html"      data-en="Products"  data-tc="產品">Products</a>
+    <a href="index.html#shops"   data-en="Shops"     data-tc="門市">Shops</a>
+    <a href="index.html#contact" data-en="Contact"   data-tc="聯絡我們">Contact</a>
+    <a href="https://bear-fruit-order-kiosk.web.app/" class="mobile-menu__order"
+       data-en="Order Online" data-tc="立即訂購"
+       target="_blank" rel="noopener noreferrer">Order Online</a>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       PAGE HEADER — FULL SCREEN
+  ══════════════════════════════════════════ -->
+  <header class="page-header">
+    <h1 class="page-header__title reveal">
+      <span class="lang-en">Our Values</span>
+      <span class="lang-tc">品牌理念</span>
+    </h1>
+    <p class="page-header__cjk reveal d1">我們的理念</p>
+    <div class="page-header__rule reveal d2"></div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════
+       STORY CONTENT
+  ══════════════════════════════════════════ -->
+  <main class="story" aria-label="Brand story">
+    <div class="story__inner">
+
+      <!-- English story block -->
+      <div class="lang-en">
+        <p class="story__p reveal d1">
+          The name Bear Fruit started as a quiet, personal wish for our own little shop to grow and find its footing. Over time, that simple thought naturally extended to the people who walk through our doors. We know that life, especially in our hometown of Hong Kong, can sometimes feel heavy or clouded by exhaustion and negative energy. Choosing this name became our gentle, unspoken way of hoping that the quiet efforts and daily struggles of everyone around us will eventually find their meaning and blossom.
+        </p>
+        <p class="story__p reveal d2">
+          We are not trying to change the world. We just believe in the honest comfort that something sweet can bring. Dessert has always possessed a subtle ability to soothe the mind and offer a momentary pause in a busy life. We simply want to use what we make as a humble medium to share a bit of warmth. If our desserts can help ease a tired spirit or provide a peaceful moment of rest, then our original wish has already borne fruit.
+        </p>
+      </div>
+
+      <!-- Traditional Chinese story block -->
+      <div class="lang-tc">
+        <p class="story__p-tc reveal d1">
+          Bear Fruit 這個名字，最初只是對這品牌能安穩立足的一份質樸心願。日子久了，這份心意自然而然地延伸到了每位推門而入的訪客身上。在我們成長的香港，生活節奏急促，大環境裡總有些難以消化的疲憊與重量。因此，這個名字逐漸成為我們一種無聲的陪伴，期盼著身邊每一個認真生活、默默耕耘的靈魂，最終都能在時間的沉澱下，迎來屬於自己的踏實與圓滿。
+        </p>
+        <p class="story__p-tc reveal d2">
+          我們並沒有改變世界的企圖，只是單純相信一點微小的甜，能帶來最真實的寬慰。甜食似乎總帶著一種溫柔的引力，讓人得以在喧囂中暫時抽離。我們將手作的甜品當作安靜的載體，傳遞一份不過度打擾的溫暖。若能在某個疲乏的日常裡，為誰帶來片刻的寧靜與安放，那麼這份陪伴的出發點，便已擁有了最深刻的意義。
+        </p>
+      </div>
+
+      <!-- Back to home -->
+      <div class="story__back reveal">
+        <a href="index.html" class="back-link" data-en="← Back to Home" data-tc="← 返回主頁">← Back to Home</a>
+      </div>
+
+    </div>
+  </main>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="footer" id="footer" aria-label="Site footer">
+    <button class="footer__totop" id="toTop" aria-label="Back to top">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>
+      </svg>
+    </button>
+    <div class="footer__main">
+      <p class="footer__motto">
+        <span class="lang-en">where fine works bear fruit</span>
+        <span class="lang-tc">慢工細作　終成碩果</span>
+      </p>
+      <a href="index.html#home" class="footer__logo-link" aria-label="Bear Fruit — home">
+        <img class="footer__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+      </a>
+    </div>
+
+    <div class="footer__bottom">
+      <nav aria-label="Footer navigation">
+        <ul class="footer__nav">
+          <li><a href="index.html"         data-en="Home"       data-tc="主頁">Home</a></li>
+          <li><a href="about.html"         data-en="Our Value"  data-tc="品牌理念">Our Value</a></li>
+          <li><a href="products.html"      data-en="Products"   data-tc="產品">Products</a></li>
+          <li><a href="index.html#shops"   data-en="Shops"      data-tc="門市">Shops</a></li>
+          <li><a href="index.html#contact" data-en="Contact"    data-tc="聯絡我們">Contact</a></li>
+          <li>
+            <a href="https://bear-fruit-order-kiosk.web.app/"
+               data-en="Order Online" data-tc="立即訂購"
+               target="_blank" rel="noopener noreferrer">Order Online</a>
+          </li>
+        </ul>
+      </nav>
+      <p class="footer__copy">
+        <span class="lang-en">&copy; 2023 Bear Fruit. All rights reserved.</span>
+        <span class="lang-tc">&copy; 2023 結菓。版權所有。</span>
+      </p>
+    </div>
+  </footer>
+
+
+  <script>
+    /* ── Language toggle ──────────────────────────────────────── */
+    const LANG_KEY = 'bf-lang';
+    let isInitialLoad = true;
+
+    function setLang(lang) {
+      document.documentElement.lang = lang === 'tc' ? 'zh-HK' : 'en';
+      document.title = lang === 'tc'
+        ? '品牌理念 — Bear Fruit 結菓'
+        : 'Our Values — Bear Fruit 結菓';
+
+      document.querySelectorAll('[data-en][data-tc]').forEach(el => {
+        el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tc;
+      });
+
+      document.querySelectorAll('.lang-en').forEach(el => {
+        el.style.display = lang === 'en' ? '' : 'none';
+      });
+      document.querySelectorAll('.lang-tc').forEach(el => {
+        el.style.display = lang === 'tc' ? 'revert' : 'none';
+      });
+
+      // On language switch, immediately reveal elements in the newly shown block
+      // (skipped on initial load so the scroll-reveal animation still works)
+      if (!isInitialLoad) {
+        const sel = lang === 'en' ? '.lang-en .reveal' : '.lang-tc .reveal';
+        document.querySelectorAll(sel).forEach(el => el.classList.add('in'));
+      }
+
+      localStorage.setItem(LANG_KEY, lang);
+    }
+
+    setLang(localStorage.getItem(LANG_KEY) || 'en');
+    isInitialLoad = false;
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      setLang(localStorage.getItem(LANG_KEY) === 'tc' ? 'en' : 'tc');
+    });
+
+    /* ── Nav scroll state ─────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── Mobile menu ──────────────────────────────────────────── */
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (burger && mobileMenu) {
+      const toggleMenu = open => {
+        burger.classList.toggle('open', open);
+        mobileMenu.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.classList.toggle('menu-open', open);
+      };
+      burger.addEventListener('click', () =>
+        toggleMenu(!mobileMenu.classList.contains('open')));
+      mobileMenu.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => toggleMenu(false)));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') toggleMenu(false);
+      });
+    }
+
+    /* ── Scroll reveal ────────────────────────────────────────── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── Footer: full-page motto + back-to-top ───────────────── */
+    const footerEl = document.getElementById('footer');
+    if (footerEl) {
+      const fObs = new IntersectionObserver(es => {
+        es.forEach(e => footerEl.classList.toggle('is-full', e.intersectionRatio > 0.85));
+      }, { threshold: [0, 0.6, 0.85, 1] });
+      fObs.observe(footerEl);
+    }
+    const toTop = document.getElementById('toTop');
+    if (toTop) toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+
+</body>
+</html>

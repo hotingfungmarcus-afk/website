@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bear Fruit 結菓 — 圍方店</title>
+  <meta name="description" content="Bear Fruit 結菓 — handcrafted mochi, puddings and waffles in Tai Wai, Hong Kong. Where fine works bear fruit.">
+
+  <!-- Favicon (inline SVG — brand green with 結) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233D5C35'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23FEFCF8' font-family='serif'%3E%E7%B5%90%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="images/Horizontal - Bear Fruit (white).png">
+  <meta name="theme-color" content="#3D5C35">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bear Fruit 結菓 — Handcrafted Desserts in Tai Wai">
+  <meta property="og:description" content="Handcrafted mochi, puddings and waffles in Tai Wai, Hong Kong. Where fine works bear fruit.">
+  <meta property="og:image" content="images/hero-bg-1.png">
+  <meta property="og:locale" content="en_HK">
+  <meta property="og:locale:alternate" content="zh_HK">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Set lang before first paint to prevent font FOUC in TC mode -->
+  <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
+
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--cream-50);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { background: none; border: none; cursor: pointer; padding: 0; }
+
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --green-dk:  #2E4528;
+      --green-md:  #3D5C35;
+      --green-pr:  #567A4D;
+
+      --cream-50:  #FEFCF8;
+      --cream-100: #FAF6EF;
+      --cream-200: #F0E9DC;
+
+      --gold:      #C9A46B;
+
+      --ink:       #1A1A18;
+      --ink-mid:   #3D3D3A;
+      --ink-muted: #6B6B64;
+
+      /* English → Helvetica */
+      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      /* Traditional Chinese → Yu Gothic (with TC-safe fallbacks) */
+      --cjk:  'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --pad-page: clamp(24px, 6vw, 80px);
+    }
+
+    /* In TC mode every element using --sans automatically switches to Yu Gothic */
+    html[lang="zh-HK"] { --sans: 'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif; }
+
+    /* ── Shared typography ──────────────────────────────────── */
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green-pr);
+    }
+    .section-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    .rule { width: 38px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-pr);
+      transition: gap 0.25s var(--ease);
+    }
+    .text-link:hover { gap: 18px; }
+
+    /* ── Image placeholder ──────────────────────────────────── */
+    .ph {
+      position: relative;
+      background: #b8cdb4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      padding: 32px;
+    }
+    .ph::after {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1px dashed rgba(255,255,255,0.38);
+      pointer-events: none;
+    }
+    .ph-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.28);
+      padding: 7px 16px;
+      border-radius: 2px;
+    }
+    .ph-spec {
+      font-size: 0.63rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 260px;
+      line-height: 1.6;
+    }
+
+    /* ── Scroll reveal ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.12s; }
+    .d2 { transition-delay: 0.24s; }
+    .d3 { transition-delay: 0.36s; }
+    .d4 { transition-delay: 0.48s; }
+
+    /* ── Blur sections ──────────────────────────────────────── */
+    .blur-section { will-change: filter; }
+
+    /* ── Full-screen scroll-snap (desktop) ──────────────────── */
+    @media (min-width: 921px) {
+      html { scroll-snap-type: y proximity; }
+      .hero, #concept, .menu, #shops, .footer {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════════════════════ */
+    /* Transparent over the hero (dark text), turns solid white on scroll */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px var(--pad-page);
+      background: transparent;
+      transition: background 0.4s var(--ease),
+                  padding    0.4s var(--ease),
+                  box-shadow  0.4s var(--ease);
+    }
+    .nav.scrolled {
+      background: #fff;
+      padding-top: 13px;
+      padding-bottom: 13px;
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Order button sits alone on the left; everything else clusters right */
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 2.2vw, 34px);
+    }
+    .nav__logo {
+      height: 34px;
+      width: auto;
+      filter: brightness(0);          /* dark logo on light hero + white bar */
+      transition: height 0.4s var(--ease);
+    }
+    .nav.scrolled .nav__logo { height: 28px; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: clamp(22px, 2vw, 34px);
+    }
+    .nav__links a {
+      font-size: 0.71rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.82;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .nav__links a:hover { opacity: 1; color: var(--green-pr); }
+    .nav.scrolled .nav__links a { color: var(--ink-mid); }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      opacity: 0.82;
+      padding: 4px;
+      transition: color 0.2s, opacity 0.2s;
+      line-height: 0;
+    }
+    .lang-toggle:hover { opacity: 1; color: var(--green-pr); }
+    .nav.scrolled .lang-toggle { color: var(--ink-mid); }
+    .lang-toggle svg { display: block; }
+
+    /* Plain-text CTA (no box), matches the other nav items */
+    .nav__order {
+      font-size: 0.71rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.85;
+      white-space: nowrap;
+      transition: color 0.2s, opacity 0.2s;
+    }
+    .nav__order:hover { opacity: 1; color: var(--green-pr); }
+    .nav.scrolled .nav__order { color: var(--ink-mid); }
+
+    /* ── Mobile menu (hamburger + overlay) ──────────────────── */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      z-index: 320;
+    }
+    .nav__burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.35s var(--ease), opacity 0.2s var(--ease), background 0.3s var(--ease);
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 190; /* below .nav (200) so the burger/toggle stay clickable */
+      background: var(--green-dk);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mobile-menu a {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-menu__order {
+      margin-top: 6px;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 13px 34px;
+      color: #fff !important;
+    }
+    body.menu-open { overflow: hidden; }
+    /* Avoid duplicate CTA while the overlay (which has its own) is open */
+    body.menu-open .nav__order { opacity: 0; pointer-events: none; }
+    /* Flip nav contents to white while the green overlay is open */
+    body.menu-open .nav__burger span { background: #fff; }
+    body.menu-open .nav__logo { filter: brightness(0) invert(1); }
+    body.menu-open .lang-toggle { color: #fff; opacity: 1; }
+
+    /* ════════════════════════════════════════════════════════
+       HERO — SLIDESHOW
+    ════════════════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      overflow: hidden;
+      background: var(--green-md);
+    }
+    .hero__slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .hero__slide.active { opacity: 1; }
+    .hero__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.04);
+    }
+    /* Slow "Ken Burns" drift-zoom on the visible slide */
+    .hero__slide.active img { animation: kenburns 9s ease-out forwards; }
+    @keyframes kenburns {
+      from { transform: scale(1.04); }
+      to   { transform: scale(1.12); }
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.38) 0%,
+        rgba(0,0,0,0)    22%,
+        rgba(0,0,0,0)    78%,
+        rgba(0,0,0,0.22) 100%
+      );
+      pointer-events: none;
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+    }
+    .hero__scroll span {
+      font-size: 0.57rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 46px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: drip 2.2s ease-in-out infinite 2s;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       CONCEPT — FULL SCREEN
+    ════════════════════════════════════════════════════════ */
+    .concept__grid {
+      display: grid;
+      grid-template-columns: 65% 35%;
+      height: 100svh;
+      min-height: 600px;
+    }
+    .concept__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .concept__panel {
+      background: var(--cream-50);
+      padding: clamp(56px, 9vw, 100px) clamp(40px, 7vw, 88px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+    .concept__teaser {
+      font-size: clamp(0.9rem, 1.3vw, 1rem);
+      font-weight: 300;
+      line-height: 2;
+      color: var(--ink-mid);
+    }
+
+    /* ════════════════════════════════════════════════════════
+       MENU — DRAGGABLE PRODUCT CAROUSEL
+    ════════════════════════════════════════════════════════ */
+    .menu {
+      min-height: 100vh;
+      background: var(--cream-100);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(24px, 4vh, 46px);
+      padding: clamp(72px, 9vh, 112px) 0 clamp(32px, 5vh, 64px);
+      overflow: hidden;
+    }
+    .menu__header {
+      padding: 0 var(--pad-page);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .menu__header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .menu__header-right {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 2vw, 30px);
+    }
+
+    /* Draggable viewport — visitor scrolls the cards by hand */
+    .menu__marquee {
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+      cursor: grab;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+    }
+    .menu__marquee::-webkit-scrollbar { display: none; }
+    .menu__marquee.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+      scroll-behavior: auto;
+    }
+    .menu__marquee.is-dragging .product-card { pointer-events: none; }
+    .menu__track {
+      display: flex;
+      gap: clamp(20px, 2.4vw, 36px);
+      width: max-content;
+      padding: 4px clamp(24px, 6vw, 80px);
+    }
+
+    /* Fixed-dimension product card (Jiichiro-style, enlarged) */
+    .product-card {
+      flex: 0 0 auto;
+      width: clamp(300px, 30vw, 420px);
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+    .product-card__img { transition: transform 0.6s var(--ease), opacity 1.2s var(--ease); }
+    .product-card:hover .product-card__img { transform: scale(1.05); }
+    .product-card:hover .product-card__name { color: var(--green-pr); }
+    .product-card__name { transition: color 0.2s; }
+    .product-card__badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      z-index: 3;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--gold);
+      padding: 6px 12px;
+      border-radius: 100px;
+    }
+    .product-card__media {
+      position: relative;
+      aspect-ratio: 4 / 5;   /* fixed shape — no more stretching */
+      overflow: hidden;
+      border-radius: 4px;
+      background: #b8cdb4;
+    }
+    .product-card__media .ph { position: absolute; inset: 0; }
+    .product-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Bare Mochi card: cross-fade between the flavour photos */
+    .product-card__slideshow .product-card__img { opacity: 0; }
+    .product-card__slideshow .product-card__img.is-active { opacity: 1; }
+
+    .product-card__body {
+      padding: 16px 6px 0;
+      text-align: center;
+    }
+    .product-card__name {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .product-card__desc {
+      display: block;
+      margin-top: 7px;
+      font-size: 0.73rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink-muted);
+    }
+    .btn-solid {
+      display: inline-block;
+      font-size: 0.71rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--green-md);
+      padding: 16px 40px;
+      white-space: nowrap;
+      transition: background 0.25s;
+    }
+    .btn-solid:hover { background: var(--green-dk); }
+
+    /* ════════════════════════════════════════════════════════
+       SHOPS / CONTACT — FULL SCREEN
+    ════════════════════════════════════════════════════════ */
+    .shops__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100svh;
+      min-height: 600px;
+    }
+    .shops__map {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+    /* Store photos (replaces the map) — cross-fade like the product photos */
+    .shops__photos {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #b8cdb4;
+    }
+    .shops__photos .ph { position: absolute; inset: 0; }
+    .shops__photos img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s var(--ease);
+    }
+    .shops__photos img.is-active { opacity: 1; }
+    .shops__maplink {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--green-pr);
+      transition: gap 0.25s var(--ease);
+    }
+    .shops__maplink:hover { gap: 14px; }
+    .shops__panel {
+      background: var(--cream-50);
+      padding: clamp(56px, 9vw, 100px) clamp(40px, 7vw, 88px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      overflow-y: auto;
+    }
+    .shops__header { display: flex; flex-direction: column; gap: 14px; }
+    .shops__name {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+    .detail { display: flex; flex-direction: column; gap: 5px; }
+    .detail__label {
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-pr);
+    }
+    .detail__value {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+    }
+    .shops__hr { width: 100%; height: 1px; background: var(--cream-200); }
+
+    .contact-links { display: flex; flex-direction: column; gap: 8px; }
+    .contact-link {
+      font-size: 0.86rem;
+      font-weight: 300;
+      color: var(--ink-mid);
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--green-pr); }
+    .contact-link--ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ig-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--ink-mid);
+      transition: color 0.2s;
+    }
+    .contact-link--ig:hover .ig-icon { color: var(--green-pr); }
+
+    /* ════════════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════════════ */
+    .footer {
+      position: relative;
+      min-height: 100vh;
+      background: var(--green-dk);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(56px, 8vh, 100px) var(--pad-page) clamp(28px, 3vh, 40px);
+    }
+    /* Middle band: motto left-middle, logo right-middle */
+    .footer__main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .footer__motto {
+      font-size: clamp(1rem, 2vw, 1.5rem);   /* small: one-line sentence */
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: 0.05em;
+      color: #fff;
+      opacity: 0.85;
+      white-space: nowrap;
+      transition: font-size 0.7s var(--ease), opacity 0.7s var(--ease);
+    }
+    .footer.is-full .footer__motto {          /* big: when footer fills the screen */
+      font-size: clamp(1.7rem, 4.4vw, 3.4rem);
+      opacity: 1;
+    }
+    .footer__logo-link { flex-shrink: 0; }
+    .footer__logo {
+      height: clamp(28px, 3vw, 42px);
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+      transition: height 0.7s var(--ease), opacity 0.2s;
+    }
+    .footer.is-full .footer__logo { height: clamp(40px, 5vw, 68px); }
+    .footer__logo-link:hover .footer__logo { opacity: 1; }
+    /* Minimalist back-to-top */
+    .footer__totop {
+      position: absolute;
+      top: clamp(88px, 12vh, 128px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .footer__totop:hover { color: #fff; border-color: rgba(255,255,255,0.7); transform: translateX(-50%) translateY(-3px); }
+    .footer__totop svg { display: block; }
+    @media (max-width: 700px) {
+      .footer__main { flex-direction: column; align-items: flex-start; gap: 30px; }
+      .footer__motto { white-space: normal; }
+    }
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px 40px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: clamp(22px, 3vw, 34px);
+    }
+    .footer__nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+    }
+    .footer__nav a {
+      font-size: 0.67rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer__nav a:hover { color: #fff; }
+    .footer__copy {
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.32);
+    }
+
+    /* ════════════════════════════════════════════════════════
+       KEYFRAMES
+    ════════════════════════════════════════════════════════ */
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes drip {
+      0%   { transform: scaleY(1);   transform-origin: top;    opacity: 1; }
+      100% { transform: scaleY(0.1); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════════════ */
+    @media (max-width: 920px) {
+      .nav__links { display: none; }
+      .nav__order { display: none; }
+      .nav__burger { display: flex; }
+
+      /* Concept and shops: revert to stacked auto-height */
+      .concept__grid,
+      .shops__grid {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .concept__image { min-height: 340px; }
+      .shops__map,
+      .shops__photos { min-height: 360px; }
+
+      /* Menu: stack the header above the carousel */
+      .menu__header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .nav { padding: 18px 20px; }
+      .nav__order { padding: 8px 16px; font-size: 0.65rem; }
+      .nav__logo { height: 52px; }
+    }
+
+    /* ── Keyboard focus (accessibility) ─────────────────────── */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ── Reduced motion (accessibility) ─────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero__slide.active img { animation: none; transform: scale(1.04); }
+      .hero__scroll, .hero__scroll-line { animation: none; }
+      .reveal { transition-duration: 0.001s; }
+    }
+  </style>
+
+  <!-- Structured data for local search (Google Business / Maps) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": "Bear Fruit 結菓",
+    "image": "https://hkbearfruit.com/images/hero-bg-1.png",
+    "description": "Handcrafted mochi, puddings and waffles in Tai Wai, Hong Kong.",
+    "servesCuisine": "Dessert",
+    "priceRange": "$$",
+    "telephone": "+852-9546-1985",
+    "email": "enquiry@hkbearfruit.com",
+    "url": "https://hkbearfruit.com/",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kiosk 21, L4, The Wai",
+      "addressLocality": "Tai Wai",
+      "addressRegion": "New Territories",
+      "addressCountry": "HK"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "12:00",
+      "closes": "21:00"
+    },
+    "sameAs": ["https://instagram.com/bearfruit_hk"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       NAV
+  ══════════════════════════════════════════ -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="#home" class="nav__logo-link" aria-label="Bear Fruit — top of page">
+      <img class="nav__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+    </a>
+
+    <div class="nav__right">
+      <ul class="nav__links" role="list">
+        <li><a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a></li>
+        <li><a href="products.html" data-en="Products"  data-tc="產品">Products</a></li>
+        <li><a href="#shops"        data-en="Shops"     data-tc="門市">Shops</a></li>
+        <li><a href="#contact"      data-en="Contact"   data-tc="聯絡我們">Contact</a></li>
+      </ul>
+
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+             fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <circle cx="10" cy="10" r="8"/>
+          <path d="M10 2 C7 5.5 7 14.5 10 18"/>
+          <path d="M10 2 C13 5.5 13 14.5 10 18"/>
+          <line x1="2" y1="10" x2="18" y2="10"/>
+          <path d="M3 6.5 Q10 4.5 17 6.5"/>
+          <path d="M3 13.5 Q10 15.5 17 13.5"/>
+        </svg>
+      </button>
+
+      <a href="https://bear-fruit-order-kiosk.web.app/" class="nav__order"
+         data-en="Order Online" data-tc="立即訂購"
+         target="_blank" rel="noopener noreferrer">Order Online</a>
+
+      <button class="nav__burger" id="navBurger" aria-label="Open menu"
+              aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a>
+    <a href="products.html" data-en="Products"  data-tc="產品">Products</a>
+    <a href="#shops"        data-en="Shops"     data-tc="門市">Shops</a>
+    <a href="#contact"      data-en="Contact"   data-tc="聯絡我們">Contact</a>
+    <a href="https://bear-fruit-order-kiosk.web.app/" class="mobile-menu__order"
+       data-en="Order Online" data-tc="立即訂購"
+       target="_blank" rel="noopener noreferrer">Order Online</a>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       HERO — SLIDESHOW
+  ══════════════════════════════════════════ -->
+  <section class="hero" id="home" aria-label="Bear Fruit">
+    <div class="hero__slide active">
+      <img src="images/hero-bg-1.png" alt="">
+    </div>
+    <div class="hero__slide">
+      <img src="images/hero-bg-2.png" alt="">
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span data-en="Scroll" data-tc="向下滑動">Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       CONCEPT — OUR VALUE
+  ══════════════════════════════════════════ -->
+  <section id="concept" class="blur-section" aria-label="Our Value">
+    <div class="concept__grid">
+
+      <!--
+        SLOT 2 — Our Value Photo (takes 65% of the row)
+        Replace this div with:
+          <img class="concept__image" src="images/concept-story.jpg"
+               alt="Bear Fruit — behind the scenes">
+        Landscape/portrait, 1400 × 1100 px min. JPG or PNG.
+      -->
+      <div class="concept__image ph" aria-hidden="true">
+        <span class="ph-label">SLOT 2 — Our Value Photo</span>
+        <span class="ph-spec">1400 × 1100 px min.<br>concept-story.jpg or .png</span>
+      </div>
+
+      <div class="concept__panel">
+        <p class="eyebrow reveal" data-en="Our Value" data-tc="品牌理念">Our Value</p>
+
+        <h2 class="section-title reveal d1">
+          <span class="lang-en">Our Values</span>
+          <span class="lang-tc">我們的價值</span>
+        </h2>
+
+        <div class="rule reveal d2"></div>
+
+        <p class="concept__teaser reveal d2">
+          <span class="lang-en">We would like to share with you the values we cherish and the story behind the name Bear Fruit.</span>
+          <span class="lang-tc">我們想與您分享我們珍惜的價值觀以及結菓名字的由來。</span>
+        </p>
+
+        <div class="reveal d3">
+          <a href="about.html" class="text-link">
+            <span data-en="Read More" data-tc="了解更多">Read More</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       MENU — DRAGGABLE PRODUCT CAROUSEL
+  ══════════════════════════════════════════ -->
+  <section class="menu blur-section" id="menu" aria-label="Our Products">
+
+    <header class="menu__header">
+      <div class="menu__header-left">
+        <p class="eyebrow reveal" data-en="Products" data-tc="產品">Products</p>
+        <h2 class="section-title reveal d1" data-en="Product Catalogue" data-tc="產品資訊">Product Catalogue</h2>
+      </div>
+      <div class="menu__header-right reveal d2">
+        <a href="products.html" class="text-link">
+          <span data-en="View All Products" data-tc="查看全部產品">View All Products</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="https://bear-fruit-order-kiosk.web.app/" class="btn-solid"
+           data-en="Order Online" data-tc="立即訂購"
+           target="_blank" rel="noopener noreferrer">Order Online</a>
+      </div>
+    </header>
+
+    <div class="menu__marquee reveal">
+      <div class="menu__track" id="menuTrack" role="list">
+
+        <!-- ── 1. Bare Mochi (rotates through 3 flavours) -->
+        <a class="product-card" role="listitem" href="product.html?p=bare-mochi">
+          <div class="product-card__media product-card__slideshow" data-rotate>
+            <div class="ph" aria-hidden="true">
+              <span class="ph-label">Bare Mochi</span>
+              <span class="ph-spec">images/products/<br>bare-mochi/</span>
+            </div>
+            <img class="product-card__img is-active" src="images/products/bare-mochi/matcha-red-bean.png"
+                 alt="Matcha Red Bean Bare Mochi" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/bare-mochi/sea-salt-cocoa-crunch.png"
+                 alt="Sea Salt Cocoa Crunch Bare Mochi" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/bare-mochi/kuromitsu-kinako.png"
+                 alt="Kuromitsu Kinako Bare Mochi" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name"><span class="lang-en">Bare Mochi</span><span class="lang-tc">裸麻糬</span></h3>
+            <span class="product-card__desc">
+              <span class="lang-en">Matcha Red Bean · Sea Salt Cocoa Crunch · Kuromitsu Kinako</span>
+              <span class="lang-tc">抹茶蜜紅豆・奶蓋濃可可・黑糖黃豆粉</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- ── 2. Stuffed Mochi -->
+        <a class="product-card" role="listitem" href="product.html?p=stuffed-mochi">
+          <div class="product-card__media">
+            <div class="ph" aria-hidden="true">
+              <span class="ph-label">Stuffed Mochi</span>
+              <span class="ph-spec">images/products/<br>stuffed-mochi/</span>
+            </div>
+            <img class="product-card__img" src="images/products/stuffed-mochi/stuffed-mochi (6pcs).png"
+                 alt="Stuffed Mochi" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name"><span class="lang-en">Stuffed Mochi</span><span class="lang-tc">包餡麻糬</span></h3>
+            <span class="product-card__desc">
+              <span class="lang-en">Roasted Kinako · Hazelnut Chocolate · Peanut Crunch · Premium Pistachio · Black &amp; White Sesame · Matcha Red Bean</span>
+              <span class="lang-tc">經典黃豆粉・榛子朱古力・花生糖不甩・特濃開心果・芝麻黑白配・抹茶蜜紅豆</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- ── 3. Japanese Custard Pudding (rotates through 3 flavours) -->
+        <a class="product-card" role="listitem" href="product.html?p=custard-pudding">
+          <div class="product-card__media product-card__slideshow" data-rotate>
+            <div class="ph" aria-hidden="true">
+              <span class="ph-label">Custard Pudding</span>
+              <span class="ph-spec">images/products/<br>custard-pudding/</span>
+            </div>
+            <img class="product-card__img is-active" src="images/products/custard-pudding/original.png"
+                 alt="Original Custard Pudding" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/custard-pudding/genmaicha.png"
+                 alt="Genmaicha Custard Pudding" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/custard-pudding/decadent-chocolate.png"
+                 alt="Decadent Chocolate Custard Pudding" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name"><span class="lang-en">Japanese Custard Pudding</span><span class="lang-tc">日式布丁</span></h3>
+            <span class="product-card__desc">
+              <span class="lang-en">Original · Genmaicha · Decadent Chocolate</span>
+              <span class="lang-tc">經典焦糖原味・京都玄米抹茶・醇厚朱古力</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- ── 4. Liège Waffle (rotates through 3 flavours) -->
+        <a class="product-card" role="listitem" href="product.html?p=liege-waffle">
+          <div class="product-card__media product-card__slideshow" data-rotate>
+            <div class="ph" aria-hidden="true">
+              <span class="ph-label">Liège Waffle</span>
+              <span class="ph-spec">images/products/<br>liege-waffle/</span>
+            </div>
+            <img class="product-card__img is-active" src="images/products/liege-waffle/original.png"
+                 alt="Original Liège Waffle" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/liege-waffle/rich-cocoa-chocolate.png"
+                 alt="Rich Cocoa Chocolate Liège Waffle" loading="lazy" onerror="this.remove()">
+            <img class="product-card__img" src="images/products/liege-waffle/kyoto-hojicha.png"
+                 alt="Kyoto Hojicha Liège Waffle" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name"><span class="lang-en">Liège Waffle</span><span class="lang-tc">列日窩夫</span></h3>
+            <span class="product-card__desc">
+              <span class="lang-en">Original · Rich Cocoa Chocolate · Kyoto Hojicha</span>
+              <span class="lang-tc">經典原味・香濃朱古力・京都焙茶</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- ── 5. Flan Tart (coming soon) -->
+        <a class="product-card" role="listitem" href="product.html?p=flan-tart">
+          <div class="product-card__media">
+            <span class="product-card__badge"><span class="lang-en">Coming Soon</span><span class="lang-tc">即將推出</span></span>
+            <div class="ph" aria-hidden="true">
+              <span class="ph-label">Flan Tart</span>
+              <span class="ph-spec">images/products/<br>flan-tart.png</span>
+            </div>
+            <img class="product-card__img" src="images/products/flan-tart.png"
+                 alt="Flan Tart" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name"><span class="lang-en">Flan Tart</span><span class="lang-tc">法式蛋撻</span></h3>
+            <span class="product-card__desc">
+              <span class="lang-en">Pâte sucrée · vanilla custard</span>
+              <span class="lang-tc">法式甜撻皮・雲呢拿吉士</span>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       SHOPS / CONTACT
+  ══════════════════════════════════════════ -->
+  <section id="shops" class="blur-section" aria-label="Our Shop">
+    <div class="shops__grid">
+
+      <!-- Store photos — cross-fade. Add images/shop/shop-1.png … shop-3.png -->
+      <div class="shops__photos" data-rotate aria-label="Our shop">
+        <div class="ph" aria-hidden="true">
+          <span class="ph-label">Shop Photo</span>
+          <span class="ph-spec">images/shop/<br>shop-1.png … shop-3.png</span>
+        </div>
+        <img src="images/shop/shop-1.png" class="is-active" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
+        <img src="images/shop/shop-2.png" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
+        <img src="images/shop/shop-3.png" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="shops__panel">
+
+        <div class="shops__header">
+          <p class="eyebrow reveal" data-en="Find Us" data-tc="聯絡我們">Find Us</p>
+          <h2 class="section-title reveal d1" data-en="Our Shop" data-tc="我們的門市">Our Shop</h2>
+        </div>
+
+        <p class="shops__name reveal d1"
+           data-en="Bear Fruit — The Wai Store"
+           data-tc="結菓 圍方店">Bear Fruit — The Wai Store</p>
+
+        <div class="detail reveal d2">
+          <span class="detail__label" data-en="Address" data-tc="地址">Address</span>
+          <span class="detail__value lang-en">Kiosk 21, L4, The Wai, Tai Wai</span>
+          <span class="detail__value lang-tc">大圍圍方4樓 Kiosk 21</span>
+          <a class="shops__maplink" style="margin-top:8px"
+             href="https://www.google.com/maps/search/?api=1&query=The+Wai+Tai+Wai"
+             target="_blank" rel="noopener noreferrer">
+            <span data-en="View on Google Maps" data-tc="在 Google 地圖查看">View on Google Maps</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="detail reveal d2">
+          <span class="detail__label" data-en="Opening Hours" data-tc="營業時間">Opening Hours</span>
+          <span class="detail__value lang-en">Daily &nbsp; 12:00 – 21:00</span>
+          <span class="detail__value lang-tc">每日 &nbsp; 12:00 – 21:00</span>
+        </div>
+
+        <div class="shops__hr reveal d2"></div>
+
+        <div id="contact" class="reveal d3">
+          <p class="detail__label" style="margin-bottom:14px"
+             data-en="Get in Touch" data-tc="聯絡我們">Get in Touch</p>
+          <div class="contact-links">
+            <a href="tel:+85295461985" class="contact-link">+852 9546 1985</a>
+            <a href="mailto:enquiry@hkbearfruit.com" class="contact-link">enquiry@hkbearfruit.com</a>
+            <a href="https://instagram.com/bearfruit_hk" class="contact-link contact-link--ig"
+               target="_blank" rel="noopener noreferrer">
+              <svg class="ig-icon" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+              </svg>
+              @bearfruit_hk
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="footer" id="footer" aria-label="Site footer">
+    <button class="footer__totop" id="toTop" aria-label="Back to top">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>
+      </svg>
+    </button>
+
+    <div class="footer__main">
+      <p class="footer__motto">
+        <span class="lang-en">where fine works bear fruit</span>
+        <span class="lang-tc">慢工細作　終成碩果</span>
+      </p>
+      <a href="#home" class="footer__logo-link" aria-label="Bear Fruit">
+        <img class="footer__logo" src="images/Horizontal - Bear Fruit (white).png" alt="Bear Fruit 結菓">
+      </a>
+    </div>
+
+    <div class="footer__bottom">
+      <nav aria-label="Footer navigation">
+        <ul class="footer__nav">
+          <li><a href="#home"         data-en="Home"       data-tc="主頁">Home</a></li>
+          <li><a href="about.html"    data-en="Our Value"  data-tc="品牌理念">Our Value</a></li>
+          <li><a href="products.html" data-en="Products"   data-tc="產品">Products</a></li>
+          <li><a href="#shops"        data-en="Shops"      data-tc="門市">Shops</a></li>
+          <li><a href="#contact"      data-en="Contact"    data-tc="聯絡我們">Contact</a></li>
+          <li>
+            <a href="https://bear-fruit-order-kiosk.web.app/"
+               data-en="Order Online" data-tc="立即訂購"
+               target="_blank" rel="noopener noreferrer">Order Online</a>
+          </li>
+        </ul>
+      </nav>
+      <p class="footer__copy">
+        <span class="lang-en">&copy; 2023 Bear Fruit. All rights reserved.</span>
+        <span class="lang-tc">&copy; 2023 結菓。版權所有。</span>
+      </p>
+    </div>
+  </footer>
+
+
+  <script>
+    /* ── Language toggle ──────────────────────────────────────── */
+    const LANG_KEY = 'bf-lang';
+
+    function setLang(lang) {
+      document.documentElement.lang = lang === 'tc' ? 'zh-HK' : 'en';
+
+      document.querySelectorAll('[data-en][data-tc]').forEach(el => {
+        el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tc;
+      });
+
+      document.querySelectorAll('.lang-en').forEach(el => {
+        el.style.display = lang === 'en' ? '' : 'none';
+      });
+      document.querySelectorAll('.lang-tc').forEach(el => {
+        el.style.display = lang === 'tc' ? '' : 'none';
+      });
+
+      document.querySelectorAll('[data-hide-tc]').forEach(el => {
+        el.style.display = lang === 'tc' ? 'none' : '';
+      });
+
+      localStorage.setItem(LANG_KEY, lang);
+    }
+
+    setLang(localStorage.getItem(LANG_KEY) || 'en');
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      setLang(localStorage.getItem(LANG_KEY) === 'tc' ? 'en' : 'tc');
+    });
+
+    /* ── Nav scroll state ─────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ── Mobile menu ──────────────────────────────────────────── */
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (burger && mobileMenu) {
+      const toggleMenu = open => {
+        burger.classList.toggle('open', open);
+        mobileMenu.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', String(open));
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.classList.toggle('menu-open', open);
+      };
+      burger.addEventListener('click', () =>
+        toggleMenu(!mobileMenu.classList.contains('open')));
+      mobileMenu.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => toggleMenu(false)));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') toggleMenu(false);
+      });
+    }
+
+    /* ── Hero slideshow ───────────────────────────────────────── */
+    const slides = document.querySelectorAll('.hero__slide');
+    if (slides.length > 1) {
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 6000);
+    }
+
+    /* ── Product carousel: infinite loop, drag to scroll ─────── */
+    const carousel = document.querySelector('.menu__marquee');
+    const track = document.getElementById('menuTrack');
+    if (carousel && track) {
+      const originals = [...track.children];
+      // Build two extra copies → [A][B][C] for a seamless two-way loop
+      for (let pass = 0; pass < 2; pass++) {
+        originals.forEach(el => {
+          const clone = el.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          track.appendChild(clone);
+        });
+      }
+      const setW = () =>
+        track.children[originals.length].offsetLeft - track.children[0].offsetLeft;
+
+      // Start in the middle copy so you can loop in both directions
+      requestAnimationFrame(() => { carousel.scrollLeft = setW(); });
+
+      let isDown = false, startX = 0, startScroll = 0, moved = false;
+
+      // Keep the scroll position inside the middle copy (invisible reset)
+      function wrap() {
+        const w = setW();
+        if (carousel.scrollLeft < w * 0.5)      { carousel.scrollLeft += w; startScroll += w; }
+        else if (carousel.scrollLeft > w * 1.5) { carousel.scrollLeft -= w; startScroll -= w; }
+      }
+
+      carousel.addEventListener('mousedown', e => {
+        isDown = true; moved = false;
+        startX = e.pageX;
+        startScroll = carousel.scrollLeft;
+        // Don't add is-dragging here — doing so sets the cards to
+        // pointer-events:none, which would stop a plain click from
+        // reaching the card link. Only switch to drag mode once moved.
+      });
+      window.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.classList.remove('is-dragging');
+      });
+      window.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        const dx = e.pageX - startX;
+        if (Math.abs(dx) > 3 && !moved) { moved = true; carousel.classList.add('is-dragging'); }
+        if (moved) { carousel.scrollLeft = startScroll - dx; wrap(); }
+      });
+      // A drag shouldn't fire the card link
+      carousel.addEventListener('click', e => {
+        if (moved) { e.preventDefault(); e.stopPropagation(); }
+      }, true);
+      // Native touch / trackpad scrolling loops too
+      carousel.addEventListener('scroll', () => { if (!isDown) wrap(); }, { passive: true });
+    }
+
+    /* ── Product image rotators (Bare Mochi flavours) ────────── */
+    document.querySelectorAll('[data-rotate]').forEach(box => {
+      let i = 0;
+      setInterval(() => {
+        const imgs = box.querySelectorAll('img');
+        if (imgs.length < 2) return;
+        imgs.forEach(im => im.classList.remove('is-active'));
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('is-active');
+      }, 3200);
+    });
+
+    /* ── Section blur on scroll-out ──────────────────────────── */
+    const blurSections = document.querySelectorAll('.blur-section');
+    let ticking = false;
+
+    function updateBlur() {
+      blurSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < 0 && rect.bottom > 0) {
+          const progress = Math.min((-rect.top) / (rect.height * 0.4), 1);
+          section.style.filter  = `blur(${(progress * 6).toFixed(2)}px)`;
+          section.style.opacity = (1 - progress * 0.35).toFixed(3);
+        } else {
+          section.style.filter  = '';
+          section.style.opacity = '';
+        }
+      });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(updateBlur); ticking = true; }
+    }, { passive: true });
+
+    /* ── Scroll reveal ────────────────────────────────────────── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── Footer: enlarge motto when it fills the screen + back-to-top ── */
+    const footerEl = document.getElementById('footer');
+    if (footerEl) {
+      const fObs = new IntersectionObserver(entries => {
+        entries.forEach(e => footerEl.classList.toggle('is-full', e.intersectionRatio > 0.85));
+      }, { threshold: [0, 0.6, 0.85, 1] });
+      fObs.observe(footerEl);
+    }
+    const toTop = document.getElementById('toTop');
+    if (toTop) toTop.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+
+</body>
+</html>
