@@ -48,13 +48,6 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    const footerEl = document.getElementById('footer');
-    if (footerEl) {
-      const fObs = new IntersectionObserver(es => {
-        es.forEach(e => footerEl.classList.toggle('is-full', e.intersectionRatio > 0.85));
-      }, { threshold: [0, 0.6, 0.85, 1] });
-      fObs.observe(footerEl);
-    }
     const toTop = document.getElementById('toTop');
     if (toTop) toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
