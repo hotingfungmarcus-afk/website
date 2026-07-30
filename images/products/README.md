@@ -8,14 +8,16 @@ Drop product photos here. Filenames must match **exactly** (all lowercase, hyphe
 ```
 images/products/
 ├── bare-mochi/                      ← 裸麻糬 (rotates through all 3 in one panel)
-│   ├── matcha-red-bean.png          ← 抹茶蜜紅豆
-│   ├── sea-salt-cocoa-crunch.png    ← 奶蓋濃可可
-│   └── kuromitsu-kinako.png         ← 黑糖黃豆粉
-├── stuffed-mochi.png                ← 包餡麻糬
-├── custard-pudding.png              ← 日式布丁 (Japanese Custard Pudding)
-├── liege-waffle.png                 ← 列日窩夫
-└── flan-tart.png                    ← 法式蛋撻
+├── stuffed-mochi/                   ← 包餡麻糬
+├── custard-pudding/                 ← 日式布丁 (Japanese Custard Pudding)
+├── liege-waffle/                    ← 列日窩夫
+└── flan-tart/                       ← 法式蛋撻
+    └── vanilla-pecan-flan.png       ← + vanilla-pecan-flan.webp for the site
 ```
+
+Each product keeps its photos in its own folder (named after the product's URL slug).
+Pages reference the optimised `.webp` next to each PNG original — when adding a new
+photo, generate a `.webp` copy alongside it and point the page at that.
 
 To add more Bare Mochi flavours later, just drop another `.png` in `bare-mochi/`
 and add one matching `<img>` line to that panel in `index.html`.

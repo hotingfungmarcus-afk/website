@@ -26,12 +26,17 @@ button { background: none; border: none; cursor: pointer; padding: 0; }
   --ink:       #1A1A18;
   --ink-mid:   #3D3D3A;
   --ink-muted: #6B6B64;
-  --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --cjk:  'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif;
+  /* Display serif — Latin in Marcellus; CJK falls back to Noto Serif TC */
+  --serif: 'Marcellus', 'Noto Serif TC', 'Times New Roman', serif;
+  /* Body — humanist grotesque; CJK glyphs fall back to the Chinese serif */
+  --sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, 'Noto Serif TC', sans-serif;
+  /* Chinese serif — correct Traditional-Chinese coverage for Hong Kong */
+  --cjk:  'Noto Serif TC', serif;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --pad-page: clamp(24px, 6vw, 80px);
 }
-html[lang="zh-HK"] { --sans: 'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif; }
+html[lang="zh-HK"] { --sans: 'Noto Serif TC', 'Hanken Grotesk', sans-serif; }
 
 /* ── Shared typography ── */
 .eyebrow {
@@ -39,8 +44,9 @@ html[lang="zh-HK"] { --sans: 'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingF
   text-transform: uppercase; color: var(--green-pr);
 }
 .section-title {
-  font-size: clamp(2.2rem, 3.8vw, 3.3rem); font-weight: 300;
-  line-height: 1.15; color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4.2vw, 3.5rem); font-weight: 400;
+  line-height: 1.06; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance;
 }
 .rule { width: 38px; height: 1px; background: var(--gold); }
 .text-link {
@@ -125,7 +131,7 @@ body.menu-open .nav__burger span { background: #fff; }
 .pcard__slideshow .pcard__img { opacity: 0; }
 .pcard__slideshow .pcard__img.is-active { opacity: 1; }
 .pcard__body { padding: 18px 4px 0; text-align: center; }
-.pcard__name { font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; color: var(--ink); transition: color 0.2s; }
+.pcard__name { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; letter-spacing: 0; color: var(--ink); transition: color 0.2s; }
 .pcard:hover .pcard__name { color: var(--green-pr); }
 .pcard__desc { display: block; margin-top: 7px; font-size: 0.76rem; font-weight: 300; line-height: 1.65; color: var(--ink-muted); }
 
@@ -148,7 +154,7 @@ body.menu-open .nav__burger span { background: #fff; }
   display: flex; flex-direction: column; justify-content: center; gap: 22px;
   padding: clamp(96px, 13vh, 140px) clamp(36px, 4.5vw, 76px) clamp(50px, 8vh, 90px);
 }
-.pd-name { font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; color: var(--ink); }
+.pd-name { font-family: var(--serif); font-size: clamp(2.2rem, 4.2vw, 3.2rem); font-weight: 400; line-height: 1.06; letter-spacing: -0.01em; color: var(--ink); }
 .pd-name-cjk { display: block; font-family: var(--cjk); font-size: clamp(1rem, 1.6vw, 1.3rem); color: var(--ink-muted); letter-spacing: 0.1em; margin-top: 8px; }
 .pd-desc { font-size: clamp(0.95rem, 1.3vw, 1.05rem); font-weight: 300; line-height: 2; color: var(--ink-mid); max-width: 46ch; }
 .pd-flavours { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
@@ -170,7 +176,7 @@ body.menu-open .nav__burger span { background: #fff; }
 .pack-item__slideshow img { opacity: 0; }
 .pack-item__slideshow img.is-active { opacity: 1; }
 .pack-item__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.pack-item__name { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+.pack-item__name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--ink); }
 .pack-item__price { font-size: 0.95rem; font-weight: 500; color: var(--green-pr); white-space: nowrap; }
 
 /* Related / all-products at the bottom of a detail page */
@@ -192,7 +198,7 @@ body.menu-open .nav__burger span { background: #fff; }
 .footer__nav a { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); transition: color 0.2s; }
 .footer__nav a:hover { color: #fff; }
 .footer__brand { display: flex; align-items: center; gap: clamp(16px, 1.8vw, 26px); }
-.footer__motto { font-size: clamp(0.85rem, 1.3vw, 1.05rem); font-weight: 300; letter-spacing: 0.04em; color: rgba(255,255,255,0.85); white-space: nowrap; }
+.footer__motto { font-family: var(--serif); font-size: clamp(1.05rem, 1.6vw, 1.3rem); font-weight: 400; letter-spacing: 0.03em; color: rgba(255,255,255,0.9); white-space: nowrap; }
 .footer__sep { color: rgba(255,255,255,0.28); font-weight: 200; font-size: 1.3em; }
 .footer__logo-link { flex-shrink: 0; line-height: 0; }
 .footer__logo { height: clamp(30px, 3vw, 44px); width: auto; filter: brightness(0) invert(1); opacity: 0.92; transition: opacity 0.2s; }

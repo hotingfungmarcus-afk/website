@@ -8,6 +8,10 @@
   <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233D5C35'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23FEFCF8' font-family='serif'%3E%E7%B5%90%3C/text%3E%3C/svg%3E">
   <meta name="theme-color" content="#3D5C35">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -51,7 +55,6 @@
       <div class="ph" aria-hidden="true"><span class="ph-label" id="phLabel">Product</span><span class="ph-spec" id="phSpec"></span></div>
     </div>
     <div class="pd-hero__info">
-      <p class="eyebrow" data-en="Product" data-tc="產品">Product</p>
       <h1 class="pd-name" id="pdName">—<span class="pd-name-cjk" id="pdNameCjk"></span></h1>
       <div class="rule"></div>
       <p class="pd-desc" id="pdDesc"></p>
@@ -63,8 +66,7 @@
   <section class="pd-pack" aria-label="Available packaging">
     <div class="pd-pack__inner">
       <div class="pd-pack__head">
-        <p class="eyebrow reveal" data-en="Available Packaging" data-tc="可選包裝">Available Packaging</p>
-        <h2 class="section-title reveal d1" data-en="Ways to enjoy" data-tc="購買選項">Ways to enjoy</h2>
+        <h2 class="section-title reveal" data-en="Ways to enjoy" data-tc="購買選項">Ways to enjoy</h2>
       </div>
       <div class="pack-list reveal d1" id="pdPack"></div>
       <div class="reveal d2">
@@ -77,8 +79,7 @@
   <!-- ══ ALL PRODUCTS (scroll further down → back to catalogue) ══ -->
   <section class="pd-related" aria-label="All products">
     <div class="pd-related__head">
-      <p class="eyebrow reveal" data-en="Products" data-tc="產品">Products</p>
-      <h2 class="section-title reveal d1" data-en="Explore all products" data-tc="探索所有產品">Explore all products</h2>
+      <h2 class="section-title reveal" data-en="Explore all products" data-tc="探索所有產品">Explore all products</h2>
     </div>
     <div class="catalog__grid" id="pdAll"></div>
     <div style="margin-top: clamp(40px,6vw,72px)">
@@ -129,7 +130,8 @@
 
   <script src="assets/site.js"></script>
 
-  <!-- Product data. NOTE: packaging prices are PLACEHOLDER examples — edit freely. -->
+  <!-- Product data. Packaging prices verified against the ordering admin on 2026-07-15.
+       (custard-pudding "Any 6 · HK$198" is intentional — being added to the order app.) -->
   <script>
   const PRODUCTS = {
     'bare-mochi': {
@@ -180,7 +182,8 @@
       comingSoon:true,
       descEn:'A crisp pâte sucrée crust filled with silky-smooth vanilla custard. Coming soon.',
       descTc:'鬆脆的法式甜撻皮，盛滿絲滑的雲呢拿吉士。即將推出。',
-      images:['images/products/flan-tart.png'],
+      folder:'images/products/flan-tart/',
+      images:['images/products/flan-tart/vanilla-pecan-flan.webp'],
       pack:[]
     }
   };

@@ -11,6 +11,12 @@
   <link rel="apple-touch-icon" href="images/Horizontal - Bear Fruit (white).png">
   <meta name="theme-color" content="#3D5C35">
 
+  <!-- Fonts — Marcellus (display serif) · Hanken Grotesk (body) · Noto Serif TC (CJK) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Our Story — Bear Fruit 結菓">
@@ -55,17 +61,19 @@
       --ink-mid:   #3D3D3A;
       --ink-muted: #6B6B64;
 
-      /* English → Helvetica */
-      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      /* Traditional Chinese → Yu Gothic (with TC-safe fallbacks) */
-      --cjk:  'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif;
+      /* Display serif — Latin in Marcellus; CJK falls back to Noto Serif TC */
+      --serif: 'Marcellus', 'Noto Serif TC', 'Times New Roman', serif;
+      /* Body — humanist grotesque; CJK glyphs fall back to the Chinese serif */
+      --sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, 'Noto Serif TC', sans-serif;
+      /* Chinese serif — correct Traditional-Chinese coverage for Hong Kong */
+      --cjk:  'Noto Serif TC', serif;
 
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
       --pad-page: clamp(24px, 6vw, 80px);
     }
 
-    /* In TC mode every element using --sans automatically switches to Yu Gothic */
-    html[lang="zh-HK"] { --sans: 'Yu Gothic', YuGothic, 'Microsoft JhengHei', 'PingFang HK', sans-serif; }
+    /* In TC mode, body copy renders in the Chinese serif */
+    html[lang="zh-HK"] { --sans: 'Noto Serif TC', 'Hanken Grotesk', sans-serif; }
 
     /* Default: hide TC blocks (JS applies the correct one on load) */
     .lang-tc { display: none; }
@@ -230,11 +238,12 @@
       text-align: center;
     }
     .page-header__title {
-      font-size: clamp(2rem, 4.5vw, 3.4rem);
-      font-weight: 300;
-      letter-spacing: 0.06em;
+      font-family: var(--serif);
+      font-size: clamp(2.3rem, 4.8vw, 3.7rem);
+      font-weight: 400;
+      letter-spacing: -0.005em;
       color: #fff;
-      line-height: 1.1;
+      line-height: 1.05;
     }
     .page-header__cjk {
       font-family: var(--cjk);
@@ -330,7 +339,7 @@
     .footer__nav a { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); transition: color 0.2s; }
     .footer__nav a:hover { color: #fff; }
     .footer__brand { display: flex; align-items: center; gap: clamp(16px, 1.8vw, 26px); }
-    .footer__motto { font-size: clamp(0.85rem, 1.3vw, 1.05rem); font-weight: 300; letter-spacing: 0.04em; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .footer__motto { font-family: var(--serif); font-size: clamp(1.05rem, 1.6vw, 1.3rem); font-weight: 400; letter-spacing: 0.03em; color: rgba(255,255,255,0.9); white-space: nowrap; }
     .footer__sep { color: rgba(255,255,255,0.28); font-weight: 200; font-size: 1.3em; }
     .footer__logo-link { flex-shrink: 0; line-height: 0; }
     .footer__logo { height: clamp(30px, 3vw, 44px); width: auto; filter: brightness(0) invert(1); opacity: 0.92; transition: opacity 0.2s; }
