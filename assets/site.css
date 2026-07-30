@@ -160,7 +160,7 @@ body.menu-open .nav__burger span { background: #fff; }
 .pd-flavours { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
 .pd-flavour { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-pr); border: 1px solid var(--cream-200); background: var(--cream-100); padding: 8px 16px; border-radius: 100px; }
 .pd-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; background: var(--gold); padding: 6px 14px; border-radius: 100px; }
-.pd-comingsoon { font-size: 1rem; font-weight: 300; color: var(--ink-muted); }
+.pd-note { font-size: 1rem; font-weight: 300; color: var(--ink-muted); }
 .pcard__badge { position: absolute; top: 12px; left: 12px; z-index: 3; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: var(--gold); padding: 6px 12px; border-radius: 100px; }
 
 /* Packaging section */

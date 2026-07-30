@@ -177,20 +177,34 @@
       flavoursTc:['經典原味','香濃朱古力','京都焙茶'],
       pack:[{en:'Original',tc:'經典原味',price:'HK$20',img:'images/products/liege-waffle/original.webp'},{en:'Rich Cocoa Chocolate',tc:'香濃朱古力',price:'HK$22',img:'images/products/liege-waffle/rich-cocoa-chocolate.webp'},{en:'Kyoto Hojicha',tc:'京都焙茶',price:'HK$24',img:'images/products/liege-waffle/kyoto-hojicha.webp'}]
     },
-    'flan-tart': {
-      en:'Flan Tart', tc:'法式蛋撻',
-      comingSoon:true,
-      descEn:'A crisp pâte sucrée crust filled with silky-smooth vanilla custard. Coming soon.',
-      descTc:'鬆脆的法式甜撻皮，盛滿絲滑的雲呢拿吉士。即將推出。',
-      folder:'images/products/flan-tart/',
-      images:['images/products/flan-tart/vanilla-pecan-flan.webp'],
+    'flan': {
+      en:'Flan', tc:'法式吉士撻',
+      descEn:'A crisp crust filled with silky-smooth vanilla custard and pecan praline.',
+      descTc:'鬆脆的撻皮，盛滿絲滑的雲呢拿吉士，配上山核桃脆糖。',
+      folder:'images/products/flan/',
+      images:['images/products/flan/vanilla-pecan-flan.webp'],
+      flavoursEn:['Vanilla Pecan'],
+      flavoursTc:['雲呢拿山核桃'],
+      pack:[]
+    },
+    'fruit-flan': {
+      en:'Fruit Flan', tc:'水果吉士撻',
+      descEn:'The same crisp crust and silky vanilla custard, crowned with layers of fresh fruit.',
+      descTc:'同樣鬆脆的撻皮與絲滑雲呢拿吉士，鋪上層層新鮮水果。',
+      folder:'images/products/fruit-flan/',
+      images:['images/products/fruit-flan/fig-flan.webp'],
+      flavoursEn:['Fig'],
+      flavoursTc:['無花果'],
       pack:[]
     }
   };
-  const ORDER = ['bare-mochi','stuffed-mochi','custard-pudding','liege-waffle','flan-tart'];
+  const ORDER = ['bare-mochi','stuffed-mochi','custard-pudding','liege-waffle','flan','fruit-flan'];
+  // Old links (and anything already indexed) still resolve after a rename
+  const ALIASES = { 'flan-tart':'flan' };
 
   (function () {
-    const slug = new URLSearchParams(location.search).get('p');
+    const raw = new URLSearchParams(location.search).get('p');
+    const slug = ALIASES[raw] || raw;
     const key = PRODUCTS[slug] ? slug : 'bare-mochi';
     const p = PRODUCTS[key];
     const bi = (en, tc) => `<span class="lang-en">${en}</span><span class="lang-tc">${tc}</span>`;
@@ -231,12 +245,20 @@
       });
     }
 
-    // Packaging (each option has its own photo slot) — or a "coming soon" note
+    // Packaging (each option has its own photo slot). With nothing to list —
+    // not launched, or sizes/pricing not confirmed yet — show a note instead.
     const pack = document.getElementById('pdPack');
-    if (p.comingSoon) {
-      pack.innerHTML = `<p class="pd-comingsoon">${bi('This product is coming soon — stay tuned.', '此產品即將推出，敬請期待。')}</p>`;
-      const btn = document.querySelector('.pd-pack .btn-solid');
-      if (btn) btn.style.display = 'none';
+    const note = p.comingSoon
+      ? bi('This product is coming soon — stay tuned.', '此產品即將推出，敬請期待。')
+      : !p.pack.length
+        ? bi('Sizes and pricing — please enquire in store or order online.', '尺寸及價格請於門市查詢，或線上訂購。')
+        : null;
+    if (note) {
+      pack.innerHTML = `<p class="pd-note">${note}</p>`;
+      if (p.comingSoon) {
+        const btn = document.querySelector('.pd-pack .btn-solid');
+        if (btn) btn.style.display = 'none';
+      }
     } else {
       p.pack.forEach((item, i) => {
         let media;
