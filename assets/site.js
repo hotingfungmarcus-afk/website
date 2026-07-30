@@ -46,7 +46,23 @@
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    const revealEls = [...document.querySelectorAll('.reveal')];
+    revealEls.forEach(el => obs.observe(el));
+
+    // .reveal starts at opacity 0 and only shows once the observer adds .in,
+    // but the observer stays silent while the document is hidden (background
+    // tab, restored session, prerender). Sweep so content can't stay invisible.
+    function sweepReveals() {
+      revealEls.forEach(el => {
+        if (el.classList.contains('in')) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight * 0.9 && r.bottom > 0) { el.classList.add('in'); obs.unobserve(el); }
+      });
+    }
+    window.bfSweepReveals = sweepReveals;
+    if (document.readyState === 'complete') sweepReveals();
+    window.addEventListener('load', sweepReveals);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) sweepReveals(); });
 
     const toTop = document.getElementById('toTop');
     if (toTop) toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));

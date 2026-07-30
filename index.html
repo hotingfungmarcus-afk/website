@@ -20,11 +20,24 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
 
+  <noscript>
+    <style>
+      /* The reveal animations are driven by JS. With no JS there is nothing to
+         add .in, so show everything outright rather than ship a blank page. */
+      .reveal, .img-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+    </style>
+  </noscript>
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Bear Fruit 結菓 — Handcrafted Desserts in Tai Wai">
   <meta property="og:description" content="Handcrafted mochi, puddings and waffles in Tai Wai, Hong Kong. Where fine works bear fruit.">
-  <meta property="og:image" content="images/hero-bg.png">
+  <!-- Absolute: scrapers (WhatsApp, Facebook, LINE) do not resolve relative
+       og:image paths, and 1200x630 is the size they crop to. -->
+  <meta property="og:url" content="https://hkbearfruit.com/">
+  <meta property="og:image" content="https://hkbearfruit.com/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_HK">
   <meta property="og:locale:alternate" content="zh_HK">
   <meta name="twitter:card" content="summary_large_image">
@@ -948,8 +961,10 @@
   <section id="concept" aria-label="Our Value">
     <div class="concept__grid">
 
+      <!-- Not lazy: while it rests clipped the browser sees no visible box and
+           defers the fetch, so it would pop in only after the reveal fires. -->
       <img class="concept__image img-reveal" src="images/our-value.webp"
-           alt="Bear Fruit — our values" loading="lazy">
+           alt="Tea and a Bear Fruit pudding set out on a quiet table" decoding="async">
 
       <div class="concept__panel">
         <h2 class="section-title reveal">
@@ -1354,12 +1369,41 @@
     });
 
     /* ── Scroll reveal ────────────────────────────────────────── */
+    const revealEls = [...document.querySelectorAll('.reveal, .img-reveal')];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        (e.target._revealTarget || e.target).classList.add('in');
+        observer.unobserve(e.target);
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal, .img-reveal').forEach(el => observer.observe(el));
+    revealEls.forEach(el => {
+      // .img-reveal rests at clip-path: inset(0 0 100% 0), which collapses the
+      // element's intersection rect to zero area. Observing it directly would
+      // report ratio 0 forever, so the class that un-clips it would never be
+      // added and the photo would stay invisible. Watch the unclipped parent.
+      const watched = el.classList.contains('img-reveal') && el.parentElement ? el.parentElement : el;
+      watched._revealTarget = el;
+      observer.observe(watched);
+    });
+
+    // These elements start at opacity 0 and only become visible once the
+    // observer adds .in — but the observer stays silent while the document is
+    // hidden (page opened in a background tab, restored session, prerender).
+    // Without this sweep that content stays invisible for good.
+    function sweepReveals() {
+      revealEls.forEach(el => {
+        if (el.classList.contains('in')) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight * 0.9 && r.bottom > 0) {
+          el.classList.add('in');
+          observer.unobserve(el);
+        }
+      });
+    }
+    if (document.readyState === 'complete') sweepReveals();
+    addEventListener('load', sweepReveals);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) sweepReveals(); });
 
     /* ── Footer: scroll to top ─────────────────────────────────── */
     const toTop = document.getElementById('toTop');

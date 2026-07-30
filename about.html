@@ -18,11 +18,18 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
 
+  <noscript>
+    <style>.reveal, .img-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; }</style>
+  </noscript>
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Our Story — Bear Fruit 結菓">
   <meta property="og:description" content="Why we started, what we believe in, and what the name Bear Fruit means to us.">
-  <meta property="og:image" content="images/hero-bg.png">
+  <meta property="og:url" content="https://hkbearfruit.com/about.html">
+  <meta property="og:image" content="https://hkbearfruit.com/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_HK">
   <meta property="og:locale:alternate" content="zh_HK">
   <meta name="twitter:card" content="summary_large_image">
@@ -631,12 +638,27 @@
     }
 
     /* ── Scroll reveal ────────────────────────────────────────── */
+    const revealEls = [...document.querySelectorAll('.reveal')];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    revealEls.forEach(el => observer.observe(el));
+
+    // The observer stays silent while the document is hidden (background tab,
+    // restored session, prerender), and .reveal starts at opacity 0 — sweep so
+    // the copy can't stay invisible.
+    function sweepReveals() {
+      revealEls.forEach(el => {
+        if (el.classList.contains('in')) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight * 0.9 && r.bottom > 0) { el.classList.add('in'); observer.unobserve(el); }
+      });
+    }
+    if (document.readyState === 'complete') sweepReveals();
+    addEventListener('load', sweepReveals);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) sweepReveals(); });
 
     /* ── Footer: scroll to top ─────────────────────────────────── */
     const toTop = document.getElementById('toTop');
