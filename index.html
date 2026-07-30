@@ -800,6 +800,11 @@
       .nav__order { padding: 8px 16px; font-size: 0.65rem; }
       .nav__logo { height: 26px; }
       .nav.scrolled .nav__logo { height: 24px; }
+
+      /* A phone screen is far taller than the 4:5 hero photo, so cover() drops
+         roughly 43% of its width. Bias the crop right so it lands on her and
+         the table rather than splitting the pair down the middle. */
+      .hero__video { object-position: 85% center; }
     }
 
     /* ── Keyboard focus (accessibility) ─────────────────────── */
@@ -1094,15 +1099,14 @@
   <section id="shops" aria-label="Our Shop">
     <div class="shops__grid">
 
-      <!-- Store photos — cross-fade. Add images/shop/shop-1.webp … shop-3.webp -->
+      <!-- Store photo. Drop in images/shop/shop-2.webp (and a matching <img> below)
+           to bring the cross-fade back — data-rotate starts once there are two. -->
       <div class="shops__photos" data-rotate aria-label="Our shop">
         <div class="ph" aria-hidden="true">
           <span class="ph-label">Shop Photo</span>
-          <span class="ph-spec">images/shop/<br>shop-1.webp … shop-3.webp</span>
+          <span class="ph-spec">images/shop/<br>shop-1.webp</span>
         </div>
         <img src="images/shop/shop-1.webp" class="is-active" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
-        <img src="images/shop/shop-2.webp" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
-        <img src="images/shop/shop-3.png" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
       </div>
 
       <div class="shops__panel">

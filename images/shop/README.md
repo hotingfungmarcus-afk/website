@@ -1,16 +1,16 @@
 # Shop photos
 
 Photos of the physical store, shown in the "Our Shop" section on the home page.
-They cross-fade automatically (same technique as the product photos). Add 2–3.
+Only `shop-1` is in use right now, so the panel shows a single still.
 
 **Best format:** landscape, ~1600 × 2000 px (fills a tall half-screen panel), optimised PNG/JPG.
 
 ```
 images/shop/
-├── shop-1.png    (shown first)
-├── shop-2.png
-└── shop-3.png    (optional)
+└── shop-1.png    ← + shop-1.webp for the site
 ```
 
-Name them exactly `shop-1.png`, `shop-2.png`, `shop-3.png`. Until added, a
-labelled placeholder tile shows in their place.
+To go back to a cross-fade, add `shop-2.png` (plus a `.webp` copy) and one
+matching `<img>` line in the `.shops__photos` block in `index.html` — the
+rotation starts by itself once a second photo is there. Until a photo exists,
+a labelled placeholder tile shows in its place.

@@ -20,8 +20,8 @@ images/products/packaging/
 ├── liege-waffle-2.png     ← Rich Cocoa Chocolate 香濃朱古力 (HK$22)
 └── liege-waffle-3.png     ← Kyoto Hojicha 京都焙茶     (HK$24)
 
-(Flan has no packaging options listed yet — its detail page shows an
-enquire-in-store note until sizes and prices are confirmed.)
+(Flan needs no file here — it reuses its own product photo,
+ images/products/flan/vanilla-pecan-flan.webp, at HK$68.)
 ```
 
 Prices and option names live in `product.html` (the `PRODUCTS` object) — edit there.
