@@ -369,51 +369,17 @@
       pointer-events: none;
     }
 
-    /* ── Hero typographic statement ─────────────────────────── */
-    .hero__statement {
+    /* Reachable by search engines and screen readers, invisible on screen */
+    .sr-only {
       position: absolute;
-      z-index: 2;
-      left: 0; right: 0;
-      bottom: clamp(92px, 17vh, 180px);
-      padding: 0 var(--pad-page);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: clamp(16px, 2.4vh, 26px);
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
     }
-    .hero__line {
-      font-family: var(--serif);
-      font-weight: 400;
-      color: #fff;
-      font-size: clamp(2.1rem, 5.6vw, 4.2rem);
-      line-height: 1.04;
-      letter-spacing: -0.01em;
-      text-wrap: balance;
-      max-width: 16ch;
-      text-shadow: 0 2px 34px rgba(0,0,0,0.42);
-    }
-    .hero__cjk-line {
-      font-family: var(--cjk);
-      color: rgba(255,255,255,0.86);
-      font-size: clamp(0.82rem, 1.5vw, 1rem);
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      text-indent: 0.4em;
-      text-shadow: 0 1px 18px rgba(0,0,0,0.45);
-    }
-    .hero__rule { width: 42px; height: 1px; background: var(--gold); }
 
-    /* Orchestrated on-load rise */
-    .hero__statement > * {
-      opacity: 0;
-      transform: translateY(26px);
-      animation: heroRise 1.1s var(--ease-out) forwards;
-    }
-    .hero__line     { animation-delay: 0.45s; }
-    .hero__rule     { animation-delay: 0.72s; }
-    .hero__cjk-line { animation-delay: 0.92s; }
-    @keyframes heroRise { to { opacity: 1; transform: none; } }
     .hero__scroll {
       position: absolute;
       bottom: 32px;
@@ -426,12 +392,6 @@
       gap: 8px;
       opacity: 0;
       animation: fadeIn 1s ease 1.5s forwards;
-    }
-    .hero__scroll span {
-      font-size: 0.57rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
     }
     .hero__scroll-line {
       width: 1px;
@@ -854,8 +814,9 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero__slide.active img { animation: none; transform: scale(1.04); }
-      .hero__scroll, .hero__scroll-line { animation: none; }
-      .hero__statement > * { animation: none; opacity: 1; transform: none; }
+      /* Show the cue outright — its fade-in is what we are skipping */
+      .hero__scroll { animation: none; opacity: 1; }
+      .hero__scroll-line { animation: none; }
       .reveal { transition-duration: 0.001s; }
       .img-reveal { clip-path: none; opacity: 1; transition: none; }
       .footer__pagetop-line::after { animation: none; opacity: 0; }
@@ -959,17 +920,15 @@
     </div>
     <div class="hero__overlay" aria-hidden="true"></div>
 
-    <div class="hero__statement">
-      <h1 class="hero__line">
-        <span class="lang-en">Where fine works bear fruit.</span>
-        <span class="lang-tc">慢工細作，終成碩果。</span>
-      </h1>
-      <span class="hero__rule" aria-hidden="true"></span>
-      <p class="hero__cjk-line" aria-hidden="true">結 · 菓　&nbsp;BEAR&nbsp;FRUIT</p>
-    </div>
+    <!-- The hero carries no visible copy so the brand video reads on its own.
+         The page still needs one top-level heading, so it is here for search
+         engines and screen readers only. -->
+    <h1 class="sr-only">
+      <span class="lang-en">Bear Fruit — handcrafted desserts in Tai Wai, Hong Kong</span>
+      <span class="lang-tc">結菓 — 香港大圍手作甜點</span>
+    </h1>
 
     <div class="hero__scroll" aria-hidden="true">
-      <span data-en="Scroll" data-tc="向下滑動">Scroll</span>
       <div class="hero__scroll-line"></div>
     </div>
   </section>
@@ -1118,26 +1077,7 @@
             <h3 class="product-card__name"><span class="lang-en">Flan</span><span class="lang-tc">法式吉士撻</span></h3>
             <span class="product-card__desc">
               <span class="lang-en">Vanilla Pecan Flan</span>
-              <span class="lang-tc">雲呢拿山核桃吉士撻</span>
-            </span>
-          </div>
-        </a>
-
-        <!-- ── 6. Fruit Flan -->
-        <a class="product-card" role="listitem" href="product.html?p=fruit-flan">
-          <div class="product-card__media">
-            <div class="ph" aria-hidden="true">
-              <span class="ph-label">Fruit Flan</span>
-              <span class="ph-spec">images/products/<br>fruit-flan/</span>
-            </div>
-            <img class="product-card__img" src="images/products/fruit-flan/fig-flan.webp"
-                 alt="Fruit Flan" loading="lazy" onerror="this.remove()">
-          </div>
-          <div class="product-card__body">
-            <h3 class="product-card__name"><span class="lang-en">Fruit Flan</span><span class="lang-tc">水果吉士撻</span></h3>
-            <span class="product-card__desc">
-              <span class="lang-en">Fig Flan</span>
-              <span class="lang-tc">無花果吉士撻</span>
+              <span class="lang-tc">雲呢拿碧根果吉士撻</span>
             </span>
           </div>
         </a>

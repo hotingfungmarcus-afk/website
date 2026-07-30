@@ -20,8 +20,8 @@ images/products/packaging/
 ├── liege-waffle-2.png     ← Rich Cocoa Chocolate 香濃朱古力 (HK$22)
 └── liege-waffle-3.png     ← Kyoto Hojicha 京都焙茶     (HK$24)
 
-(Flan and Fruit Flan have no packaging options listed yet — their detail pages
-show an enquire-in-store note until sizes and prices are confirmed.)
+(Flan has no packaging options listed yet — its detail page shows an
+enquire-in-store note until sizes and prices are confirmed.)
 ```
 
 Prices and option names live in `product.html` (the `PRODUCTS` object) — edit there.
