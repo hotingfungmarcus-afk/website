@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product — Bear Fruit 結菓</title>
-  <meta name="description" content="Bear Fruit 結菓 product.">
+  <!-- Every product shares this file and is selected by ?p=<slug>, so the static
+       title/description/og below are the generic fallback a non-rendering scraper
+       sees. The inline script at the foot of <body> rewrites them, plus the
+       canonical, to the actual product once it knows the slug. -->
+  <title>Our Desserts — Bear Fruit 結菓</title>
+  <meta name="description" content="Handcrafted mochi, puddings, waffles and flan from Bear Fruit 結菓 in Tai Wai, Hong Kong.">
   <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="icon" type="image/png" href="images/favicon-dark.png" media="(prefers-color-scheme: dark)">
@@ -14,6 +18,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Marcellus&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
+
+  <!-- Social share card. Absolute URLs — scrapers ignore relative og paths.
+       Deliberately NO static <link rel="canonical">: this file can't know the
+       slug, and a query-less canonical would fold all five products onto one
+       URL. The script injects the correct per-product canonical instead. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Our Desserts — Bear Fruit 結菓">
+  <meta property="og:description" content="Handcrafted mochi, puddings, waffles and flan from Bear Fruit 結菓 in Tai Wai, Hong Kong.">
+  <meta property="og:url" content="https://hkbearfruit.com/products.html">
+  <meta property="og:image" content="https://hkbearfruit.com/images/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_HK">
+  <meta property="og:locale:alternate" content="zh_HK">
+  <meta name="twitter:card" content="summary_large_image">
 
   <noscript>
     <style>.reveal, .img-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; }</style>
@@ -206,6 +225,33 @@
     const bi = (en, tc) => `<span class="lang-en">${en}</span><span class="lang-tc">${tc}</span>`;
 
     document.title = `${p.en} — Bear Fruit 結菓`;
+
+    // Now that the slug is known, replace the generic <head> fallback with this
+    // product's own metadata and point the canonical at the ?p= URL — otherwise
+    // all five products look like one page. Googlebot runs this script; social
+    // scrapers do NOT, so they keep the generic card from <head>.
+    const canonical = `https://hkbearfruit.com/product.html?p=${key}`;
+    let cEl = document.head.querySelector('link[rel="canonical"]');
+    if (!cEl) {
+      cEl = document.createElement('link');
+      cEl.rel = 'canonical';
+      document.head.appendChild(cEl);
+    }
+    cEl.href = canonical;
+
+    const setMeta = (attr, key2, content) => {
+      let el = document.head.querySelector(`meta[${attr}="${key2}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key2);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+    setMeta('name', 'description', p.descEn);
+    setMeta('property', 'og:title', `${p.en} ${p.tc} — Bear Fruit 結菓`);
+    setMeta('property', 'og:description', p.descEn);
+    setMeta('property', 'og:url', canonical);
 
     // Hero media
     const media = document.getElementById('pdMedia');
