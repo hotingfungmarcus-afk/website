@@ -11,8 +11,9 @@ images/products/
 ├── stuffed-mochi/                   ← 包餡麻糬
 ├── custard-pudding/                 ← 日式布丁 (Japanese Custard Pudding)
 ├── liege-waffle/                    ← 列日窩夫
-└── flan/                            ← 法式吉士撻
-    └── vanilla-pecan-flan.png       ← + vanilla-pecan-flan.webp for the site
+└── flan/                            ← 法式吉士撻 (rotates through both in one panel)
+    ├── vanilla-pecan-flan.png       ← + vanilla-pecan-flan.webp for the site
+    └── chocolate-hazelnut-flan.png  ← + chocolate-hazelnut-flan.webp for the site
 ```
 
 Each product keeps its photos in its own folder (named after the product's URL slug).
