@@ -360,13 +360,12 @@
     }
     /* Slow "Ken Burns" drift-zoom on the visible slide */
     .hero__slide.active img { animation: kenburns 9s ease-out forwards; }
-    /* Brand background video */
-    .hero__video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    /* Hero still. Sits apart from the slideshow rules above: it holds its own
+       crop and stays motionless, so no Ken Burns drift. */
+    .hero__slide img.hero__still {
       object-position: center;
-      display: block;
+      transform: none;
+      animation: none;
     }
     @keyframes kenburns {
       from { transform: scale(1.04); }
@@ -821,7 +820,7 @@
       /* A phone screen is far taller than the 4:5 hero photo, so cover() drops
          roughly 43% of its width. Bias the crop right so it lands on her and
          the table rather than splitting the pair down the middle. */
-      .hero__video { object-position: 85% center; }
+      .hero__slide img.hero__still { object-position: 85% center; }
     }
 
     /* ── Keyboard focus (accessibility) ─────────────────────── */
@@ -931,18 +930,13 @@
   ══════════════════════════════════════════ -->
   <section class="hero" id="home" aria-label="Bear Fruit">
     <div class="hero__slide active">
-      <!-- Brand video: drop the file in as images/brand-video.mp4 (and optional .webm).
-           Until it exists, the poster image shows automatically. -->
-      <video class="hero__video" id="heroVideo"
-             autoplay muted loop playsinline preload="metadata"
-             poster="images/hero-bg.webp" aria-hidden="true">
-        <source src="images/brand-video.webm" type="video/webm">
-        <source src="images/brand-video.mp4" type="video/mp4">
-      </video>
+      <img class="hero__still" src="images/hero-bg.webp"
+           alt="Two people laughing over Bear Fruit puddings and tea at a round wooden table"
+           fetchpriority="high">
     </div>
     <div class="hero__overlay" aria-hidden="true"></div>
 
-    <!-- The hero carries no visible copy so the brand video reads on its own.
+    <!-- The hero carries no visible copy so the photo reads on its own.
          The page still needs one top-level heading, so it is here for search
          engines and screen readers only. -->
     <h1 class="sr-only">
@@ -1293,14 +1287,6 @@
         current = (current + 1) % slides.length;
         slides[current].classList.add('active');
       }, 6000);
-    }
-
-    /* Pause the brand video for visitors who prefer reduced motion */
-    const heroVideo = document.getElementById('heroVideo');
-    if (heroVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      heroVideo.removeAttribute('autoplay');
-      heroVideo.addEventListener('loadedmetadata', () => heroVideo.pause());
-      heroVideo.pause();
     }
 
     /* ── Product carousel: infinite loop, drag to scroll ─────── */
