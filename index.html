@@ -209,8 +209,8 @@
     }
     .nav.scrolled {
       background: #fff;
-      padding-top: 13px;
-      padding-bottom: 13px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       box-shadow: 0 1px 20px rgba(0,0,0,0.08);
     }
 
@@ -224,9 +224,14 @@
       height: 34px;
       width: auto;
       filter: brightness(0);          /* dark logo on light hero + white bar */
-      transition: height 0.4s var(--ease);
+      transform-origin: left center;  /* logo is flush left — hold that edge */
+      transition: transform 0.4s var(--ease);
     }
-    .nav.scrolled .nav__logo { height: 28px; }
+    /* 28 / 34 — the same 28px as before, reached by scaling rather than by
+       resizing the box: animating the logo's height resamples the bitmap on
+       every frame. The box stays 34px, so .nav.scrolled trims its own padding
+       to 10px to keep the scrolled bar at 54px. */
+    .nav.scrolled .nav__logo { transform: scale(0.8235); }
 
     .nav__links {
       display: flex;
@@ -815,7 +820,10 @@
       .nav { padding: 18px 20px; }
       .nav__order { padding: 8px 16px; font-size: 0.65rem; }
       .nav__logo { height: 26px; }
-      .nav.scrolled .nav__logo { height: 24px; }
+      /* Below 600px the 28px burger — not the logo — sets the row height, so
+         the bar keeps its original 13px and only the logo scales. 24 / 26. */
+      .nav.scrolled { padding-top: 13px; padding-bottom: 13px; }
+      .nav.scrolled .nav__logo { transform: scale(0.9231); }
 
       /* A phone screen is far taller than the 4:5 hero photo, so cover() drops
          roughly 43% of its width. Bias the crop right so it lands on her and

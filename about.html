@@ -113,8 +113,8 @@
       transition: padding 0.45s var(--ease), box-shadow 0.45s var(--ease);
     }
     .nav.scrolled {
-      padding-top: 16px;
-      padding-bottom: 16px;
+      padding-top: 12px;
+      padding-bottom: 12px;
       box-shadow: 0 2px 24px rgba(0,0,0,0.18);
     }
 
@@ -122,9 +122,14 @@
       height: 38px;
       width: auto;
       filter: brightness(0) invert(1);
-      transition: height 0.45s var(--ease);
+      transform-origin: left center;  /* logo is flush left — hold that edge */
+      transition: transform 0.45s var(--ease);
     }
-    .nav.scrolled .nav__logo { height: 30px; }
+    /* 30 / 38 — the same 30px as before, reached by scaling rather than by
+       resizing the box: animating the logo's height resamples the bitmap on
+       every frame. The box stays 38px, so .nav.scrolled trims its own padding
+       to 12px to keep the scrolled bar at 62px. */
+    .nav.scrolled .nav__logo { transform: scale(0.7895); }
 
     .nav__links {
       display: flex;
@@ -404,7 +409,10 @@
       .nav { padding: 18px 20px; }
       .nav__order { padding: 8px 16px; font-size: 0.65rem; }
       .nav__logo { height: 26px; }
-      .nav.scrolled .nav__logo { height: 24px; }
+      /* Below 600px the 28px burger — not the logo — sets the row height, so
+         the bar keeps its original 16px and only the logo scales. 24 / 26. */
+      .nav.scrolled { padding-top: 16px; padding-bottom: 16px; }
+      .nav.scrolled .nav__logo { transform: scale(0.9231); }
     }
 
     /* ── Keyboard focus (accessibility) ─────────────────────── */
