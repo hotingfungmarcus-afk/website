@@ -7,6 +7,10 @@
        title/description/og below are the generic fallback a non-rendering scraper
        sees. The inline script at the foot of <body> rewrites them, plus the
        canonical, to the actual product once it knows the slug. -->
+  <!-- Each product now has its own static page (bare-mochi.html, ...), built from the
+       data below by .claude/tools/build-product-pages.mjs. Old ?p= links bounce there. -->
+  <script>(function(){var a={'flan-tart':'flan'},k=['bare-mochi','stuffed-mochi','custard-pudding','liege-waffle','flan'],s=new URLSearchParams(location.search).get('p');s=a[s]||s;location.replace((k.indexOf(s)>-1?s:'products')+'.html');})();</script>
+  <meta name="robots" content="noindex, follow">
   <title>Our Desserts — Bear Fruit 結菓</title>
   <meta name="description" content="Handcrafted mochi, puddings, waffles and flan from Bear Fruit 結菓 in Tai Wai, Hong Kong.">
   <script>if(localStorage.getItem('bf-lang')==='tc')document.documentElement.lang='zh-HK';</script>
@@ -167,7 +171,7 @@
       images:['images/products/bare-mochi/matcha-red-bean (12pcs).webp','images/products/bare-mochi/sea-salt-cocoa-crunch (12pcs).webp','images/products/bare-mochi/kuromitsu-kinako (12pcs).webp'],
       flavoursEn:['Matcha Red Bean','Sea Salt Cocoa Crunch','Kuromitsu Kinako'],
       flavoursTc:['抹茶蜜紅豆','奶蓋濃可可','黑糖黃豆粉'],
-      pack:[{en:'6-Piece Box',tc:'6 件裝',price:'HK$30–32',imgs:['images/products/bare-mochi/matcha-red-bean (6pcs).png','images/products/bare-mochi/sea-salt-cocoa-crunch (6pcs).png','images/products/bare-mochi/kuromitsu-kinako (6pcs).png']},{en:'12-Piece Box',tc:'12 件裝',price:'HK$40–42',imgs:['images/products/bare-mochi/matcha-red-bean (12pcs).webp','images/products/bare-mochi/sea-salt-cocoa-crunch (12pcs).webp','images/products/bare-mochi/kuromitsu-kinako (12pcs).webp']}]
+      pack:[{en:'6-Piece Box',tc:'6 件裝',price:'HK$30–32',imgs:['images/products/bare-mochi/matcha-red-bean (6pcs).webp','images/products/bare-mochi/sea-salt-cocoa-crunch (6pcs).webp','images/products/bare-mochi/kuromitsu-kinako (6pcs).webp']},{en:'12-Piece Box',tc:'12 件裝',price:'HK$40–42',imgs:['images/products/bare-mochi/matcha-red-bean (12pcs).webp','images/products/bare-mochi/sea-salt-cocoa-crunch (12pcs).webp','images/products/bare-mochi/kuromitsu-kinako (12pcs).webp']}]
     },
     'stuffed-mochi': {
       en:'Stuffed Mochi', tc:'包餡麻糬',
@@ -233,7 +237,7 @@
     // product's own metadata and point the canonical at the ?p= URL — otherwise
     // all five products look like one page. Googlebot runs this script; social
     // scrapers do NOT, so they keep the generic card from <head>.
-    const canonical = `https://hkbearfruit.com/product.html?p=${key}`;
+    const canonical = `https://hkbearfruit.com/${key}.html`;
     let cEl = document.head.querySelector('link[rel="canonical"]');
     if (!cEl) {
       cEl = document.createElement('link');
@@ -338,7 +342,7 @@
       const q = PRODUCTS[k];
       const a = document.createElement('a');
       a.className = 'pcard reveal';
-      a.href = 'product.html?p=' + k;
+      a.href = k + '.html';
       a.innerHTML =
         `<div class="pcard__media">
            ${q.comingSoon ? `<span class="pcard__badge">${bi('Coming Soon','即將推出')}</span>` : ''}
