@@ -6,6 +6,7 @@
     document.documentElement.lang = lang === 'tc' ? 'zh-HK' : 'en';
     document.querySelectorAll('[data-en][data-tc]').forEach(el => {
       el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tc;
+      if (el.hasAttribute('data-app-download')) el.search = '?bflang=' + lang;
     });
     document.querySelectorAll('.lang-en').forEach(el => { el.style.display = lang === 'en' ? '' : 'none'; });
     document.querySelectorAll('.lang-tc').forEach(el => { el.style.display = lang === 'tc' ? '' : 'none'; });

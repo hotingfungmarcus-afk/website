@@ -460,9 +460,9 @@
         </svg>
       </button>
 
-      <a href="https://bear-fruit-order-kiosk.web.app/" class="nav__order"
-         data-en="Order Online" data-tc="立即訂購"
-         target="_blank" rel="noopener noreferrer">Order Online</a>
+      <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download class="nav__order"
+         data-en="Order in the app" data-tc="使用會員 App 訂購"
+         target="_blank" rel="noopener noreferrer">Order in the app</a>
 
       <button class="nav__burger" id="navBurger" aria-label="Open menu"
               aria-expanded="false" aria-controls="mobileMenu">
@@ -476,9 +476,9 @@
     <a href="about.html"         data-en="Our Value" data-tc="品牌理念">Our Value</a>
     <a href="products.html"      data-en="Products"  data-tc="產品">Products</a>
     <a href="index.html#shops" data-en="Contact"   data-tc="聯絡我們">Contact</a>
-    <a href="https://bear-fruit-order-kiosk.web.app/" class="mobile-menu__order"
-       data-en="Order Online" data-tc="立即訂購"
-       target="_blank" rel="noopener noreferrer">Order Online</a>
+    <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download class="mobile-menu__order"
+       data-en="Order in the app" data-tc="使用會員 App 訂購"
+       target="_blank" rel="noopener noreferrer">Order in the app</a>
   </div>
 
 
@@ -558,7 +558,7 @@
         <a href="about.html"         data-en="Our Value"  data-tc="品牌理念">Our Value</a>
         <a href="products.html"      data-en="Products"   data-tc="產品">Products</a>
         <a href="index.html#shops" data-en="Contact"    data-tc="聯絡我們">Contact</a>
-        <a href="https://bear-fruit-order-kiosk.web.app/" data-en="Order Online" data-tc="立即訂購" target="_blank" rel="noopener noreferrer">Order Online</a>
+        <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download data-en="Order in the app" data-tc="使用會員 App 訂購" target="_blank" rel="noopener noreferrer">Order in the app</a>
       </nav>
 
       <div class="footer__brand">
@@ -593,6 +593,7 @@
 
       document.querySelectorAll('[data-en][data-tc]').forEach(el => {
         el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tc;
+        if (el.hasAttribute('data-app-download')) el.search = '?bflang=' + lang;
       });
 
       document.querySelectorAll('.lang-en').forEach(el => {
