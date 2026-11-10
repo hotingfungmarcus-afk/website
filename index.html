@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bear Fruit 結菓</title>
-  <meta name="description" content="Bear Fruit 結菓 — 大圍圍方4樓手作甜品店：麻糬、日式布丁、列日窩夫、法式吉士撻。Handcrafted mochi, Japanese custard pudding, Liège waffles and flan at The Wai, Tai Wai, Hong Kong.">
+  <meta name="description" content="Bear Fruit 結菓 — 兩間手作甜品店，位於大圍圍方及觀塘 The ANGLE。Handcrafted mochi, Japanese custard pudding, Liège waffles and flan at our two stores: The Wai, Tai Wai, and The ANGLE, Kwun Tong, Hong Kong.">
   <link rel="canonical" href="https://hkbearfruit.com/">
 
   <!-- Favicon (inline SVG — brand green with 結) -->
@@ -31,8 +31,8 @@
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Bear Fruit 結菓 — Handcrafted Desserts in Tai Wai">
-  <meta property="og:description" content="Handcrafted mochi, puddings and waffles in Tai Wai, Hong Kong. Where fine works bear fruit.">
+  <meta property="og:title" content="Bear Fruit 結菓 — Handcrafted Desserts in Tai Wai &amp; Kwun Tong">
+  <meta property="og:description" content="Visit our two stores at The Wai, Tai Wai, and The ANGLE, Kwun Tong. Handcrafted mochi, puddings, waffles and flan. Where fine works bear fruit.">
   <!-- Absolute: scrapers (WhatsApp, Facebook, LINE) do not resolve relative
        og:image paths, and 1200x630 is the size they crop to. -->
   <meta property="og:url" content="https://hkbearfruit.com/">
@@ -588,81 +588,36 @@
     .btn-solid:hover { background: var(--green-dk); }
 
     /* ════════════════════════════════════════════════════════
-       SHOPS / CONTACT — FULL SCREEN
+       SHOPS / CONTACT — ONE PHOTO PER STORE
     ════════════════════════════════════════════════════════ */
-    .shops__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      height: 100svh;
-      min-height: 600px;
+    #shops { scroll-margin-top: 72px; background: var(--cream-50); }
+    .shops-brief {
+      display: grid; grid-template-columns: 0.9fr 1.3fr; align-items: center;
+      gap: clamp(40px, 6vw, 88px); max-width: 1320px; margin: 0 auto;
+      padding: clamp(64px, 7vw, 100px) clamp(24px, 6vw, 80px);
     }
-    .shops__map {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border: 0;
+    .shops-brief__intro p { max-width: 32ch; margin-top: 24px; font-size: .9rem; font-weight: 300; color: var(--ink-mid); line-height: 1.9; }
+    .shops-brief__link { display: inline-flex; align-items: center; gap: 32px; margin-top: 28px; padding-block: 10px; border-bottom: 1px solid var(--green-pr); font-size: .78rem; color: var(--green-pr); transition: gap .25s; }
+    .shops-brief__link:hover { gap: 40px; }
+    .shops-brief__photos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+    .shops-brief__store { min-width: 0; }
+    .shops-brief__photo { aspect-ratio: 4/3; overflow: hidden; background: var(--cream-200); }
+    .shops-brief__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .shops-brief__photo--wai img { object-position: center 75%; }
+    .shops-brief__store h3 { margin-top: 16px; font-family: var(--serif); font-size: 1.12rem; font-weight: 400; }
+    .shops-brief__district { display: block; margin-top: 6px; font-size: .73rem; color: var(--ink-muted); }
+    .shops__contact { border-top: 1px solid var(--cream-200); }
+    .shops__contact-inner { max-width:1320px; margin:0 auto; padding:28px clamp(24px,6vw,80px); display:flex; justify-content:space-between; align-items:baseline; gap:24px; }
+    .shops__contact .contact-links { flex-direction:row; flex-wrap:wrap; gap:12px 28px; }
+    .detail__label { font-size:.65rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--green-pr); }
+    @media (max-width:720px) {
+      .shops-brief { grid-template-columns:1fr; gap:32px; }
+      .shops-brief__intro p { margin-top:18px; }
+      .shops-brief__photos { gap:16px; }
+      .shops-brief__store h3 { font-size:1.05rem; }
+      .shops__contact-inner { flex-direction:column; }
+      .shops__contact .contact-links { flex-direction:column; }
     }
-    /* Store photos (replaces the map) — cross-fade like the product photos */
-    .shops__photos {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #b8cdb4;
-    }
-    .shops__photos .ph { position: absolute; inset: 0; }
-    .shops__photos img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.2s var(--ease);
-    }
-    .shops__photos img.is-active { opacity: 1; }
-    .shops__maplink {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      font-weight: 300;
-      color: var(--green-pr);
-      transition: gap 0.25s var(--ease);
-    }
-    .shops__maplink:hover { gap: 14px; }
-    .shops__panel {
-      background: var(--cream-50);
-      padding: clamp(56px, 9vw, 100px) clamp(40px, 7vw, 88px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 32px;
-      overflow-y: auto;
-    }
-    .shops__header { display: flex; flex-direction: column; gap: 14px; }
-    .shops__name {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 400;
-      letter-spacing: -0.005em;
-      color: var(--ink);
-    }
-    .detail { display: flex; flex-direction: column; gap: 5px; }
-    .detail__label {
-      font-size: 0.63rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--green-pr);
-    }
-    .detail__value {
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: var(--ink-mid);
-      line-height: 1.75;
-    }
-    .shops__hr { width: 100%; height: 1px; background: var(--cream-200); }
 
     .contact-links { display: flex; flex-direction: column; gap: 8px; }
     .contact-link {
@@ -802,16 +757,13 @@
       .nav__order { display: none; }
       .nav__burger { display: flex; }
 
-      /* Concept and shops: revert to stacked auto-height */
-      .concept__grid,
-      .shops__grid {
+      /* Concept: revert to stacked auto-height */
+      .concept__grid {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
         height: auto;
       }
       .concept__image { height: 62vh; min-height: 320px; }
-      .shops__map,
-      .shops__photos { min-height: 360px; }
 
       /* Menu: stack the header above the carousel */
       .menu__header { flex-direction: column; align-items: flex-start; }
@@ -854,32 +806,106 @@
 
   <!-- Structured data for local search (Google Business / Maps) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Bakery",
-    "name": "Bear Fruit 結菓",
-    "image": "https://hkbearfruit.com/images/og-cover.jpg",
-    "description": "Handcrafted mochi, Japanese custard pudding, Liège waffles and flan at The Wai, Tai Wai, Hong Kong. 大圍圍方手作甜品：麻糬、日式布丁、列日窩夫、法式吉士撻。",
-    "servesCuisine": "Dessert",
-    "priceRange": "$$",
-    "telephone": "+852-9546-1985",
-    "email": "enquiry@hkbearfruit.com",
-    "url": "https://hkbearfruit.com/",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Kiosk 21, L4, The Wai",
-      "addressLocality": "Tai Wai",
-      "addressRegion": "New Territories",
-      "addressCountry": "HK"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://hkbearfruit.com/#organization",
+      "name": "Bear Fruit 結菓",
+      "url": "https://hkbearfruit.com/",
+      "sameAs": [
+        "https://instagram.com/bearfruit_hk"
+      ],
+      "location": [
+        {
+          "@id": "https://hkbearfruit.com/#store-wai"
+        },
+        {
+          "@id": "https://hkbearfruit.com/#store-angle"
+        }
+      ]
     },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "12:00",
-      "closes": "21:00"
+    {
+      "@type": "Bakery",
+      "name": "Bear Fruit 結菓 — The Wai 圍方店",
+      "image": "https://hkbearfruit.com/images/shop/shop-1.webp",
+      "description": "Handcrafted mochi, Japanese custard pudding, Liège waffles and flan at The Wai, Tai Wai, Hong Kong. 大圍圍方手作甜品：麻糬、日式布丁、列日窩夫、法式吉士撻。",
+      "servesCuisine": "Dessert",
+      "priceRange": "$$",
+      "telephone": "+852-9546-1985",
+      "email": "enquiry@hkbearfruit.com",
+      "url": "https://hkbearfruit.com/stores.html#store-wai",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kiosk 21, L4, The Wai",
+        "addressLocality": "Tai Wai",
+        "addressRegion": "New Territories",
+        "addressCountry": "HK"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "12:00",
+        "closes": "21:00"
+      },
+      "sameAs": [
+        "https://instagram.com/bearfruit_hk"
+      ],
+      "@id": "https://hkbearfruit.com/#store-wai",
+      "parentOrganization": {
+        "@id": "https://hkbearfruit.com/#organization"
+      }
     },
-    "sameAs": ["https://instagram.com/bearfruit_hk"]
-  }
+    {
+      "@type": "Bakery",
+      "name": "Bear Fruit 結菓 — The ANGLE 店",
+      "image": "https://hkbearfruit.com/images/shop/the-angle-store-20261110-v2.webp",
+      "description": "Handcrafted desserts at The ANGLE, Kwun Tong, Hong Kong. 觀塘 The ANGLE 手作甜品店。",
+      "servesCuisine": "Dessert",
+      "priceRange": "$$",
+      "telephone": "+852-9546-1985",
+      "email": "enquiry@hkbearfruit.com",
+      "url": "https://hkbearfruit.com/stores.html#store-angle",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shop 128A, 1/F, The ANGLE, 98 How Ming Street",
+        "addressLocality": "Kwun Tong",
+        "addressRegion": "Kowloon",
+        "addressCountry": "HK"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "12:00",
+        "closes": "20:00"
+      },
+      "sameAs": [
+        "https://instagram.com/bearfruit_hk"
+      ],
+      "@id": "https://hkbearfruit.com/#store-angle",
+      "parentOrganization": {
+        "@id": "https://hkbearfruit.com/#organization"
+      }
+    }
+  ]
+}
   </script>
 </head>
 <body>
@@ -896,7 +922,7 @@
       <ul class="nav__links" role="list">
         <li><a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a></li>
         <li><a href="products.html" data-en="Products"  data-tc="產品">Products</a></li>
-        <li><a href="#shops"      data-en="Contact"   data-tc="聯絡我們">Contact</a></li>
+        <li><a href="stores.html" data-en="Our Stores" data-tc="門市位置">Our Stores</a></li>
       </ul>
 
       <button class="lang-toggle" id="langToggle" aria-label="Switch language">
@@ -926,7 +952,7 @@
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a>
     <a href="products.html" data-en="Products"  data-tc="產品">Products</a>
-    <a href="#shops"      data-en="Contact"   data-tc="聯絡我們">Contact</a>
+    <a href="stores.html" data-en="Our Stores" data-tc="門市位置">Our Stores</a>
     <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download class="mobile-menu__order"
        data-en="Order in the app" data-tc="使用會員 App 訂購"
        target="_blank" rel="noopener noreferrer">Order in the app</a>
@@ -948,8 +974,8 @@
          The page still needs one top-level heading, so it is here for search
          engines and screen readers only. -->
     <h1 class="sr-only">
-      <span class="lang-en">Bear Fruit — handcrafted desserts in Tai Wai, Hong Kong</span>
-      <span class="lang-tc">結菓 — 香港大圍手作甜點</span>
+      <span class="lang-en">Bear Fruit — handcrafted desserts in Tai Wai and Kwun Tong, Hong Kong</span>
+      <span class="lang-tc">結菓 — 香港大圍及觀塘手作甜點</span>
     </h1>
 
     <div class="hero__scroll" aria-hidden="true">
@@ -1117,52 +1143,28 @@
   <!-- ══════════════════════════════════════════
        SHOPS / CONTACT
   ══════════════════════════════════════════ -->
-  <section id="shops" aria-label="Our Shop">
-    <div class="shops__grid">
-
-      <!-- Store photo. Drop in images/shop/shop-2.webp (and a matching <img> below)
-           to bring the cross-fade back — data-rotate starts once there are two. -->
-      <div class="shops__photos" data-rotate aria-label="Our shop">
-        <div class="ph" aria-hidden="true">
-          <span class="ph-label">Shop Photo</span>
-          <span class="ph-spec">images/shop/<br>shop-1.webp</span>
-        </div>
-        <img src="images/shop/shop-1.webp" class="is-active" alt="Bear Fruit — The Wai store" loading="lazy" onerror="this.remove()">
+  <section id="shops" aria-labelledby="shops-title">
+    <div class="shops-brief">
+      <div class="shops-brief__intro">
+        <h2 class="section-title reveal" id="shops-title" data-en="Our Stores" data-tc="門市位置">Our Stores</h2>
+        <p class="reveal d1" data-en="Find us at The Wai in Tai Wai and The ANGLE in Kwun Tong. Two stores, with the same care in every dessert."
+           data-tc="從大圍圍方到觀塘 The ANGLE，兩間分店，同一份手作心意。">Find us at The Wai in Tai Wai and The ANGLE in Kwun Tong. Two stores, with the same care in every dessert.</p>
+        <a class="shops-brief__link reveal d2" href="stores.html"><span data-en="Explore our stores" data-tc="查看門市詳情">Explore our stores</span><span aria-hidden="true">→</span></a>
       </div>
-
-      <div class="shops__panel">
-
-        <div class="shops__header">
-          <h2 class="section-title reveal" data-en="Find Us" data-tc="尋找我們">Find Us</h2>
-        </div>
-
-        <p class="shops__name reveal d1"
-           data-en="Bear Fruit — The Wai Store"
-           data-tc="結菓 圍方店">Bear Fruit — The Wai Store</p>
-
-        <div class="detail reveal d2">
-          <span class="detail__label" data-en="Address" data-tc="地址">Address</span>
-          <span class="detail__value lang-en">Kiosk 21, L4, The Wai, Tai Wai</span>
-          <span class="detail__value lang-tc">大圍圍方4樓 Kiosk 21</span>
-          <a class="shops__maplink" style="margin-top:8px"
-             href="https://www.google.com/maps/search/?api=1&query=The+Wai+Tai+Wai"
-             target="_blank" rel="noopener noreferrer">
-            <span data-en="View on Google Maps" data-tc="在 Google 地圖查看">View on Google Maps</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <div class="detail reveal d2">
-          <span class="detail__label" data-en="Opening Hours" data-tc="營業時間">Opening Hours</span>
-          <span class="detail__value lang-en">Daily &nbsp; 12:00 – 21:00</span>
-          <span class="detail__value lang-tc">每日 &nbsp; 12:00 – 21:00</span>
-        </div>
-
-        <div class="shops__hr reveal d2"></div>
-
-        <div id="contact" class="reveal d3">
-          <p class="detail__label" style="margin-bottom:14px"
-             data-en="Get in Touch" data-tc="聯絡我們">Get in Touch</p>
+      <div class="shops-brief__photos">
+        <a class="shops-brief__store" href="stores.html#store-wai">
+          <div class="shops-brief__photo shops-brief__photo--wai"><img src="images/shop/shop-1.webp" alt="Bear Fruit — The Wai storefront" width="1856" height="2304" loading="lazy"></div>
+          <h3 data-en="The Wai" data-tc="圍方店">The Wai</h3><span class="shops-brief__district" data-en="Tai Wai" data-tc="大圍">Tai Wai</span>
+        </a>
+        <a class="shops-brief__store" href="stores.html#store-angle">
+          <div class="shops-brief__photo"><img src="images/shop/the-angle-store-20261110-v2.webp" alt="Bear Fruit — The ANGLE storefront" width="1448" height="1086" loading="lazy"></div>
+          <h3 data-en="The ANGLE" data-tc="The ANGLE 店">The ANGLE</h3><span class="shops-brief__district" data-en="Kwun Tong" data-tc="觀塘">Kwun Tong</span>
+        </a>
+      </div>
+    </div>
+    <div id="contact" class="shops__contact">
+      <div class="shops__contact-inner">
+        <p class="detail__label" data-en="Get in Touch" data-tc="聯絡我們">Get in Touch</p>
           <div class="contact-links">
             <a href="tel:+85295461985" class="contact-link">+852 9546 1985</a>
             <a href="mailto:enquiry@hkbearfruit.com" class="contact-link">enquiry@hkbearfruit.com</a>
@@ -1178,8 +1180,6 @@
               @bearfruit_hk
             </a>
           </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1203,7 +1203,7 @@
         <a href="#home"         data-en="Home"       data-tc="主頁">Home</a>
         <a href="about.html"    data-en="Our Value"  data-tc="品牌理念">Our Value</a>
         <a href="products.html" data-en="Products"   data-tc="產品">Products</a>
-        <a href="#shops"      data-en="Contact"    data-tc="聯絡我們">Contact</a>
+        <a href="stores.html" data-en="Our Stores" data-tc="門市位置">Our Stores</a>
         <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download
            data-en="Order in the app" data-tc="使用會員 App 訂購"
            target="_blank" rel="noopener noreferrer">Order in the app</a>
