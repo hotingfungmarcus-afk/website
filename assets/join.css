@@ -1,0 +1,90 @@
+.join {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  max-width: 1680px;
+  margin-inline: auto;
+  padding: clamp(108px, 9vw, 148px) var(--pad-page) clamp(54px, 6vw, 96px);
+  align-items: center;
+  gap: clamp(40px, 7vw, 112px);
+}
+.join__copy { padding-block: 20px; }
+.join__icon {
+  width: 58px;
+  height: auto;
+  border-radius: 22%;
+  margin-bottom: clamp(24px, 3vw, 42px);
+}
+.join h1 {
+  font: 400 clamp(3.5rem, 5.7vw, 6rem)/1.08 var(--serif);
+  letter-spacing: -0.045em;
+  color: var(--green-dk);
+  text-wrap: balance;
+}
+.join__intro {
+  margin-top: 24px;
+  max-width: 38ch;
+  text-wrap: balance;
+  font-size: clamp(1.12rem, 1.5vw, 1.4rem);
+  line-height: 1.55;
+  color: var(--ink-mid);
+}
+.join__detail {
+  margin-top: 12px;
+  max-width: 38ch;
+  font-size: 1rem;
+  text-wrap: pretty;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+.join__downloads {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(28px, 3.4vw, 52px);
+}
+.join__downloads a { display: inline-flex; }
+.join__downloads img { height: clamp(44px, 3.5vw, 52px); width: auto; }
+.join__downloads .badge-tc,
+html[lang="zh-HK"] .join__downloads .badge-en { display: none; }
+html[lang="zh-HK"] .join__downloads .badge-tc { display: block; }
+html[lang="zh-HK"] .join h1 { letter-spacing: 0.015em; font-size: clamp(2.65rem, 4.5vw, 4.75rem); }
+html[lang="zh-HK"] .join__intro { line-height: 1.85; }
+html[lang="zh-HK"] .join__detail { line-height: 1.9; max-width: 24em; }
+.join__photo {
+  position: relative;
+  aspect-ratio: 1 / 1.07;
+  background: var(--cream-100);
+}
+.join__photo::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 58%;
+  height: 36%;
+  border-right: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  pointer-events: none;
+}
+.join__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 57% 66%;
+}
+
+@media (max-width: 800px) {
+  .join { grid-template-columns: minmax(0, 1fr); gap: 36px; padding-top: 104px; }
+  .join__copy { padding-block: 0; }
+  .join__photo { aspect-ratio: 1.75; }
+  .join__photo img { object-position: center 74%; }
+}
+@media (max-width: 480px) {
+  .join { padding-top: 92px; padding-bottom: 44px; }
+  .join__icon { width: 48px; margin-bottom: 20px; }
+  .join h1 { font-size: clamp(2.8rem, 12vw, 3.5rem); }
+  .join__intro { margin-top: 18px; }
+  .join__downloads { gap: 12px; }
+  .join__photo { aspect-ratio: 1.45; }
+}

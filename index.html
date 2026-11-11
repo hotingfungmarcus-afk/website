@@ -214,7 +214,6 @@
       box-shadow: 0 1px 20px rgba(0,0,0,0.08);
     }
 
-    /* Order button sits alone on the left; everything else clusters right */
     .nav__right {
       display: flex;
       align-items: center;
@@ -754,7 +753,6 @@
     ════════════════════════════════════════════════════════ */
     @media (max-width: 920px) {
       .nav__links { display: none; }
-      .nav__order { display: none; }
       .nav__burger { display: flex; }
 
       /* Concept: revert to stacked auto-height */
@@ -770,7 +768,8 @@
     }
     @media (max-width: 600px) {
       .nav { padding: 18px 20px; }
-      .nav__order { padding: 8px 16px; font-size: 0.65rem; }
+      .nav__right { gap: clamp(8px, 2.5vw, 14px); }
+      .nav__order { padding: 7px 2px; font-size: 0.7rem; }
       .nav__logo { height: 26px; }
       /* Below 600px the 28px burger — not the logo — sets the row height, so
          the bar keeps its original 13px and only the logo scales. 24 / 26. */
@@ -937,9 +936,7 @@
         </svg>
       </button>
 
-      <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download class="nav__order"
-         data-en="Order in the app" data-tc="使用會員 App 訂購"
-         target="_blank" rel="noopener noreferrer">Order in the app</a>
+      <a href="join.html" class="nav__order" data-en="Join Us" data-tc="加入會員">Join Us</a>
 
       <button class="nav__burger" id="navBurger" aria-label="Open menu"
               aria-expanded="false" aria-controls="mobileMenu">
@@ -953,9 +950,7 @@
     <a href="about.html"    data-en="Our Value" data-tc="品牌理念">Our Value</a>
     <a href="products.html" data-en="Products"  data-tc="產品">Products</a>
     <a href="stores.html" data-en="Our Stores" data-tc="門市位置">Our Stores</a>
-    <a href="https://bear-fruit-order-kiosk.web.app/join.html#order" data-app-download class="mobile-menu__order"
-       data-en="Order in the app" data-tc="使用會員 App 訂購"
-       target="_blank" rel="noopener noreferrer">Order in the app</a>
+    <a href="join.html" class="mobile-menu__order" data-en="Join Us" data-tc="加入會員">Join Us</a>
   </div>
 
 
