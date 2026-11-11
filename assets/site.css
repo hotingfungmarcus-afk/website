@@ -178,6 +178,26 @@ body.menu-open .nav__burger span { background: #fff; }
 .pack-item__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .pack-item__name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--ink); }
 .pack-item__price { font-size: 0.95rem; font-weight: 500; color: var(--green-pr); white-space: nowrap; }
+.member-price {
+  margin-inline-start: auto;
+  text-align: end;
+  line-height: 1.5;
+}
+.member-price__line {
+  color: var(--green-md);
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+.member-price__line strong { margin-inline-start: 4px; font-size: 1rem; font-weight: 500; }
+.member-price__comparison {
+  margin-top: 3px;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+.member-price__comparison s {
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 1.5px;
+}
 
 /* Related / all-products at the bottom of a detail page */
 .pd-related { padding: clamp(72px, 10vw, 130px) var(--pad-page); text-align: center; }
