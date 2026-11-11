@@ -174,11 +174,15 @@
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.82);
+      color: var(--green-md);
+      background-color: var(--cream-50);
+      padding: 8px 12px;
+      border: 1px solid var(--green-pr);
+      border-radius: 3px;
       white-space: nowrap;
-      transition: color 0.2s;
+      transition: background-color 0.2s;
     }
-    .nav__order:hover { color: #fff; }
+    .nav__order:hover { background-color: var(--cream-100); }
 
     /* ── Mobile menu (hamburger + overlay) ──────────────────── */
     .nav__burger {
@@ -404,10 +408,13 @@
       .nav__links { display: none; }
       .nav__burger { display: flex; }
     }
+    @media (max-width: 420px) {
+      .nav__order { padding-inline: 7px; }
+    }
     @media (max-width: 600px) {
       .nav { padding: 18px 20px; }
       .nav__right { gap: clamp(8px, 2.5vw, 14px); }
-      .nav__order { padding: 7px 2px; font-size: 0.7rem; }
+      .nav__order { font-size: 0.7rem; }
       .nav__logo { height: 26px; }
       /* Below 600px the 28px burger — not the logo — sets the row height, so
          the bar keeps its original 16px and only the logo scales. 24 / 26. */
